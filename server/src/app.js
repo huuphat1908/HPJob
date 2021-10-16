@@ -9,9 +9,11 @@ dotenv.config();
 import route from './routes/index.js';
 import * as db from './config/db/index.js';
 
-//app port router db static files
+//app port req.body router db static files
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 route(app);
 db.connect();
 /* app.use(express.static(path.join(__dirname, 'public'))); */
