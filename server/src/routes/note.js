@@ -6,5 +6,6 @@ const noteRouter = express.Router();
 import noteController from '../app/controllers/note.js';
 
 noteRouter.get('/', noteController.getAllNote);
+noteRouter.post('/', noteController.createNote);
 
 export default noteRouter;

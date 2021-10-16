@@ -3,8 +3,8 @@ import Note from '../models/note.js';
 class NoteController {
     //GET
     getAllNote = async (req, res) => {
-        const notes = 'Hehe';
-        res.send(notes);
+        const notes = await Note.find({});
+        res.json(notes);
     };
 
     //POST
