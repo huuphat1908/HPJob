@@ -6,6 +6,11 @@ const noteRouter = express.Router();
 import noteController from '../app/controllers/note.js';
 
 noteRouter.get('/', noteController.getAllNote);
+noteRouter.get('/:id', noteController.getOneNote);
+
 noteRouter.post('/', noteController.createNote);
+
+noteRouter.delete('/', noteController.deleteAllNote);
+noteRouter.delete('/:id', noteController.deleteOneNote);
 
 export default noteRouter;

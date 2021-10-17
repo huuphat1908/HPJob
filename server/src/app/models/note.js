@@ -12,7 +12,7 @@ const NoteSchema = new Schema({
     isInArchive: { type: Boolean, default: false},
     isLocked: { type: Boolean, default: false},
     password: { type: String, maxLength: 255, default: '' },
-    color: { type: String, default: 'white' }
+    color: { type: String, default: '' }
 }, {
     timestamps: true,
 });

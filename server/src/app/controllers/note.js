@@ -11,6 +11,16 @@ class NoteController {
         }
     };
 
+    getOneNote = async (req, res) => {
+        try {
+            const id = req.params.id;
+            const noteFound = await Note.findById(id);
+            res.status(200).json(noteFound); 
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    }
+
     //POST
     createNote = async (req, res) => {
         try {
@@ -22,6 +32,27 @@ class NoteController {
             res.status(400).send(error);
         }
     }
+
+    //DELETE
+    deleteAllNote = async (req, res) => {
+        try {
+            const noteDeleted = await Note.deleteMany({});
+            res.status(200).json(noteDeleted);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    }
+
+    deleteOneNote = async (req, res) => {
+        try {
+            const id = req.params.id;
+            const noteDeleted = await Note.deleteOne({ _id: id });
+            res.status(200).json(noteDeleted);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    }
+
 }
 
 const noteController = new NoteController();

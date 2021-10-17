@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 route(app);
 db.connect();
 
+//listening port
 app.listen(PORT, () =>
     console.log(`App listening on port ${PORT}`)
 );
