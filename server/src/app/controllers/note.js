@@ -1,10 +1,10 @@
-import Note from '../models/note.js';
+import NoteModel from '../models/note.js';
 
 class NoteController {
     //GET
     getAllNote = async (req, res) => {
         try {
-            const notes = await Note.find({});
+            const notes = await NoteModel.find({});
             res.status(200).json(notes);
         } catch (error) {
             res.status(400).send(error);
@@ -14,7 +14,7 @@ class NoteController {
     getOneNote = async (req, res) => {
         try {
             const id = req.params.id;
-            const noteFound = await Note.findById(id);
+            const noteFound = await NoteModel.findById(id);
             res.status(200).json(noteFound); 
         } catch (error) {
             res.status(400).send(error);
@@ -25,7 +25,7 @@ class NoteController {
     createNote = async (req, res) => {
         try {
             const input = req.body;
-            const newNote = new Note(input);
+            const newNote = new NoteModel(input);
             await newNote.save();
             res.status(201).json(newNote);
         } catch (error) {
@@ -36,7 +36,7 @@ class NoteController {
     //DELETE
     deleteAllNote = async (req, res) => {
         try {
-            const noteDeleted = await Note.deleteMany({});
+            const noteDeleted = await NoteModel.deleteMany({});
             res.status(200).json(noteDeleted);
         } catch (error) {
             res.status(400).send(error);
@@ -46,7 +46,7 @@ class NoteController {
     deleteOneNote = async (req, res) => {
         try {
             const id = req.params.id;
-            const noteDeleted = await Note.deleteOne({ _id: id });
+            const noteDeleted = await NoteModel.deleteOne({ _id: id });
             res.status(200).json(noteDeleted);
         } catch (error) {
             res.status(400).send(error);
