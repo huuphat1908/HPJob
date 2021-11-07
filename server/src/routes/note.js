@@ -13,4 +13,6 @@ noteRouter.post('/', noteController.createNote);
 noteRouter.delete('/', noteController.deleteAllNote);
 noteRouter.delete('/:id', noteController.deleteOneNote);
 
+noteRouter.patch('/:id', noteController.modifyNote);
+
 export default noteRouter;

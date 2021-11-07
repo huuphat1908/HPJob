@@ -53,6 +53,17 @@ class NoteController {
         }
     }
 
+    //PUT
+    modifyNote = async (req, res) => {
+        try {
+            const id = req.params.id;
+            const noteInput = req.body;
+            const noteModified = await NoteModel.findOneAndUpdate({ _id: id }, { ...noteInput }, { new: true });
+            res.status(200).json(noteModified);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    }
 }
 
 const noteController = new NoteController();
