@@ -22,5 +22,5 @@ db.connect();
 
 //listening port
 app.listen(PORT, () =>
-    console.log(`App listening on port ${PORT}`)
+    console.log(`Server running on port ${PORT}`)
 );
