@@ -1,5 +1,7 @@
 import NoteModel from '../models/note.js';
 
+import noteValidationSchema from '../validations/note.js';
+
 class NoteController {
     //GET
     getAllNote = async (req, res) => {
@@ -23,11 +25,15 @@ class NoteController {
 
     //POST
     createNote = async (req, res) => {
+        const input = req.body;
+        const inputValidated = noteValidationSchema.validate(input);
+        if (inputValidated.error) {
+            return res.status(400).send(inputValidated.error.details[0].message);
+        }
         try {
-            const input = req.body;
-            const newNote = new NoteModel(input);
+            const newNote = new NoteModel(inputValidated.value);
             await newNote.save();
-            res.status(201).json(newNote);
+            res.status(201).json(inputValidated.value);
         } catch (error) {
             res.status(400).send(error);
         }
