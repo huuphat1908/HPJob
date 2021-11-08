@@ -1,4 +1,6 @@
-import FeedbackModel from '../models/feedback.js';
+import { FeedbackModel } from '../models/index.js';
+
+import { feedbackValidationSchema } from '../validations/index.js';
 
 class FeedbackController {
     //GET
@@ -23,9 +25,13 @@ class FeedbackController {
 
     //POST
     createFeedback = async (req, res) => {
+        const input = req.body;
+        const inputValidated = feedbackValidationSchema.validate(input);
+        if (inputValidated.error) {
+            return res.status(400).send(inputValidated.error.details[0].message);
+        }
         try {
-            const input = req.body;
-            const newFeedback = new FeedbackModel(input);
+            const newFeedback = new FeedbackModel(inputValidated.value);
             await newFeedback.save();
             res.status(201).json(newFeedback);
         } catch (error) {

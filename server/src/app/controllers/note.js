@@ -1,6 +1,6 @@
-import NoteModel from '../models/note.js';
+import { NoteModel } from '../models/index.js';
 
-import noteValidationSchema from '../validations/note.js';
+import { noteValidationSchema } from '../validations/index.js';
 
 class NoteController {
     //GET
@@ -33,7 +33,7 @@ class NoteController {
         try {
             const newNote = new NoteModel(inputValidated.value);
             await newNote.save();
-            res.status(201).json(inputValidated.value);
+            res.status(201).json(newNote);
         } catch (error) {
             res.status(400).send(error);
         }

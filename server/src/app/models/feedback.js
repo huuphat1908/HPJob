@@ -7,7 +7,7 @@ const FeedbackSchema = new Schema({
     content: [
         {
             sender: mongoose.Types.ObjectId,
-            content: String
+            contentSender: String
         }
     ]
 }, {

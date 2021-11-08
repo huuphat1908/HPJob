@@ -3,7 +3,7 @@ import express from 'express';
 const noteRouter = express.Router();
 
 //controller
-import noteController from '../app/controllers/note.js';
+import { noteController } from '../app/controllers/index.js';
 
 noteRouter.get('/', noteController.getAllNote);
 noteRouter.get('/:id', noteController.getOneNote);

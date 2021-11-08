@@ -3,7 +3,7 @@ import express from 'express';
 const colorRouter = express.Router();
 
 //import controller
-import colorController from '../app/controllers/color.js';
+import { colorController }  from '../app/controllers/index.js';
 
 colorRouter.get('/', colorController.getAllColor);
 colorRouter.get('/:id', colorController.getOneColor);

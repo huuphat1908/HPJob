@@ -1,4 +1,6 @@
-import ColorModel from '../models/color.js';
+import { ColorModel }  from '../models/index.js';
+
+import { colorValidationSchema } from '../validations/index.js';
 
 class ColorController {
     //GET
@@ -23,9 +25,13 @@ class ColorController {
 
     //POST
     createColor = async (req, res) => {
+        const input = req.body;
+        const inputValidated = feedbackValidationSchema.validate(input);
+        if (inputValidated.error) {
+            return res.status(400).send(inputValidated.error.details[0].message);
+        }
         try {
-            const input = req.body;
-            const newColor = new ColorModel(input);
+            const newColor = new ColorModel(inputValidated.value);
             await newColor.save();
             res.status(201).json(newColor);
         } catch (error) {

@@ -3,6 +3,7 @@ import  mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    id: mongoose.ObjectId,
     role: { type: String, required: true, enum : ['user','admin'], default: 'user' },
     username: { type: String, minLength: 6, maxLength: 20, required: true },
     email: { type: String, required: true },

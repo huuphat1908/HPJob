@@ -3,7 +3,7 @@ import express from 'express';
 const feedbackRouter = express.Router();
 
 //import controller
-import feedbackController from '../app/controllers/feedback.js';
+import { feedbackController } from '../app/controllers/index.js';
 
 feedbackRouter.get('/', feedbackController.getAllFeedback);
 feedbackRouter.get('/:id', feedbackController.getOneFeedback);

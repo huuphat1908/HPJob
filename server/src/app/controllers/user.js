@@ -1,4 +1,6 @@
-import UserModel from '../models/user.js';
+import { UserModel } from '../models/index.js';
+
+import { userValidationSchema } from '../validations/index.js';
 
 class UserController {
     //GET
@@ -23,9 +25,13 @@ class UserController {
 
     //POST
     createUser = async (req, res) => {
+        const input = req.body;
+        const inputValidated = userValidationSchema.validate(input);
+        if (inputValidated.error) {
+            return res.status(400).send(inputValidated.error.details[0].message);
+        }
         try {
-            const input = req.body;
-            const newUser = new UserModel(input);
+            const newUser = new UserModel(inputValidated.value);
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
