@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import { UserModel } from '../models/index.js';
 
@@ -53,7 +54,14 @@ class UserController {
         const user = await UserModel.findOne({ email: inputValidated.value.email });
         const isValidPassword = await bcrypt.compare(inputValidated.value.password, user.password);
         if (isValidPassword) {
-            res.status(200).json('Sign in successfully');
+            const token = jwt.sign({
+                username: user.username,
+                role: user.role
+            },
+            process.env.PRIVATE_KEY_JWT, {
+                expiresIn: '14d'
+            });
+            res.status(200).json(token);
         } else {
             res.status(400).json('Wrong email or password');
         }
