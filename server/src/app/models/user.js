@@ -3,7 +3,6 @@ import  mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    id: mongoose.ObjectId,
     role: { type: String, required: true, enum : ['user','admin'], default: 'user' },
     username: { type: String, minLength: 6, maxLength: 20, required: true },
     email: { type: String, required: true },
@@ -11,17 +10,17 @@ const UserSchema = new Schema({
     label: [
         {
             name: { type: String, required: true }, 
-            color: { type: mongoose.Types.ObjectId, required: true },
+            colorId: { type: mongoose.Types.ObjectId, required: true, ref: 'Color' },
         }
     ],
     feedback: [
         {
-            feedbackId: { type: mongoose.Types.ObjectId, required: true }
+            feedbackId: { type: mongoose.Types.ObjectId, required: true, ref: 'Feedback' }
         }
     ],
     note: [
         {
-            noteId : { type: mongoose.Types.ObjectId, required: true }
+            noteId : { type: mongoose.Types.ObjectId, required: true, ref: 'Note' }
         }
     ]
 }, {

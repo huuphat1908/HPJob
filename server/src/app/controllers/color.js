@@ -26,7 +26,7 @@ class ColorController {
     //POST
     createColor = async (req, res) => {
         const input = req.body;
-        const inputValidated = feedbackValidationSchema.validate(input);
+        const inputValidated = colorValidationSchema.validate(input);
         if (inputValidated.error) {
             return res.status(400).send(inputValidated.error.details[0].message);
         }

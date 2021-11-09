@@ -6,7 +6,7 @@ class NoteController {
     //GET
     getAllNote = async (req, res) => {
         try {
-            const notes = await NoteModel.find({});
+            const notes = await NoteModel.find({}).populate('colorId');
             res.status(200).json(notes);
         } catch (error) {
             res.status(400).send(error);
@@ -16,7 +16,9 @@ class NoteController {
     getOneNote = async (req, res) => {
         try {
             const id = req.params.id;
-            const noteFound = await NoteModel.findById(id);
+            const noteFound = await NoteModel.findById(id).populate({
+                path: 'colorId'
+            });
             res.status(200).json(noteFound); 
         } catch (error) {
             res.status(400).send(error);
