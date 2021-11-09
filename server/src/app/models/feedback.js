@@ -3,7 +3,7 @@ import  mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const FeedbackSchema = new Schema({
-    content: [
+    contents: [
         {
             sender: { type: mongoose.Types.ObjectId, ref: 'User' } ,
             contentSender: String

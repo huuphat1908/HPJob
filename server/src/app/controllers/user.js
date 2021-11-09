@@ -1,6 +1,10 @@
+import bcrypt from 'bcrypt';
+
 import { UserModel } from '../models/index.js';
 
 import { userValidationSchema } from '../validations/index.js';
+
+const saltRounds = 7;
 
 class UserController {
     //GET
@@ -30,12 +34,28 @@ class UserController {
         if (inputValidated.error) {
             return res.status(400).send(inputValidated.error.details[0].message);
         }
+        inputValidated.value.password = await bcrypt.hash(inputValidated.value.password, saltRounds);
         try {
             const newUser = new UserModel(inputValidated.value);
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
             res.status(400).send(error);
+        }
+    }
+
+    authenticateUser = async (req, res) => {
+        const input = req.body;
+        const inputValidated = userValidationSchema.validate(input);
+        if (inputValidated.error) {
+            return res.status(400).send(inputValidated.error.details[0].message);
+        }
+        const user = await UserModel.findOne({ email: inputValidated.value.email });
+        const isValidPassword = await bcrypt.compare(inputValidated.value.password, user.password);
+        if (isValidPassword) {
+            res.status(200).json('Sign in successfully');
+        } else {
+            res.status(400).json('Wrong email or password');
         }
     }
 

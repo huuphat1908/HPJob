@@ -4,7 +4,7 @@ const userValidationSchema = Joi.object({
     role: Joi.string().valid('user', 'admin'),
     username: Joi.string().alphanum().min(6).max(20),
     email: Joi.string().email({ tlds: false }),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string(),
     label: Joi.array().items(
         Joi.object().keys({
             name: Joi.string(),

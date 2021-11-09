@@ -16,9 +16,7 @@ class NoteController {
     getOneNote = async (req, res) => {
         try {
             const id = req.params.id;
-            const noteFound = await NoteModel.findById(id).populate({
-                path: 'colorId'
-            });
+            const noteFound = await NoteModel.findById(id).populate('colorId');
             res.status(200).json(noteFound); 
         } catch (error) {
             res.status(400).send(error);
