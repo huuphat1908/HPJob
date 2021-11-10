@@ -8,7 +8,7 @@ const route = (app) => {
     app.use('/api/notes', noteRouter);
     app.use('/api/colors', colorRouter);
     app.use('/api/users', userRouter);
-    app.use('/feedback', feedbackRouter);
+    app.use('/api/feedback', feedbackRouter);
 }
 
 export default route;
