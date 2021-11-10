@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const FeedbackSchema = new Schema({
     contents: [
         {
-            sender: { type: mongoose.Types.ObjectId, ref: 'User' } ,
+            senderId: { type: mongoose.Types.ObjectId, ref: 'User' } ,
             contentSender: String
         }
     ]

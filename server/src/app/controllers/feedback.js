@@ -6,7 +6,7 @@ class FeedbackController {
     //GET
     getAllFeedback = async (req, res) => {
         try {
-            const feedbacks = await FeedbackModel.find({});
+            const feedbacks = await FeedbackModel.find({}).populate('contents.senderId');
             res.status(200).json(feedbacks);
         } catch (error) {
             res.status(400).send(error);
@@ -16,7 +16,7 @@ class FeedbackController {
     getOneFeedback = async (req, res) => {
         try {
             const id = req.params.id;
-            const feedbackFound = await FeedbackModel.findById(id);
+            const feedbackFound = await FeedbackModel.findById(id).populate('contents.senderId');
             res.status(200).json(feedbackFound); 
         } catch (error) {
             res.status(400).send(error);
@@ -64,7 +64,7 @@ class FeedbackController {
         try {
             const id = req.params.id;
             const feedbackInput = req.body;
-            const feedbackModified = await FeedbackModel.findOneAndUpdate({ _id: id }, { ...feedbackInput }, { new: true });
+            const feedbackModified = await FeedbackModel.findOneAndUpdate({ _id: id }, { ...feedbackInput }, { new: true }).populate('contents.senderId');
             res.status(200).json(feedbackModified);
         } catch (error) {
             res.status(400).send(error);

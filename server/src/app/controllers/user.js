@@ -11,7 +11,7 @@ class UserController {
     //GET
     getAllUser = async (req, res) => {
         try {
-            const users = await UserModel.find({});
+            const users = await UserModel.find({}).populate('labels.colorId').populate('feedbacks.feedbackId').populate('notes.noteId');
             res.status(200).json(users);
         } catch (error) {
             res.status(400).send(error);
@@ -21,7 +21,7 @@ class UserController {
     getOneUser = async (req, res) => {
         try {
             const id = req.params.id;
-            const userFound = await UserModel.findById(id);
+            const userFound = await UserModel.findById(id).populate('labels.colorId').populate('feedbacks.feedbackId').populate('notes.noteId');
             res.status(200).json(userFound);
         } catch (error) {
             res.status(400).send(error);
@@ -61,9 +61,11 @@ class UserController {
             process.env.PRIVATE_KEY_JWT, {
                 expiresIn: '14d'
             });
-            res.status(200).json(token);
+            res.status(200).json({ token });
         } else {
-            res.status(400).json('Wrong email or password');
+            res.status(401).json({
+                error: 'Wrong email or password'
+            });
         }
     }
 
@@ -92,7 +94,7 @@ class UserController {
         try {
             const id = req.params.id;
             const userInput = req.body;
-            const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true });
+            const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true }).populate('labels.colorId').populate('feedbacks.feedbackId').populate('notes.noteId');
             res.status(200).json(userModified);
         } catch (error) {
             res.status(400).send(error);
