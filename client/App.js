@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'; 
+
 import Note from './components/Note';
 
 export default function App() {
