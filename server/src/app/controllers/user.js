@@ -58,7 +58,7 @@ class UserController {
                 username: user.username,
                 role: user.role
             },
-            process.env.PRIVATE_KEY_JWT, {
+            process.env.ACCESS_TOKEN_KEY, {
                 expiresIn: '14d'
             });
             res.status(200).json({ token });
