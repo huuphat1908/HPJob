@@ -6,7 +6,6 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 dotenv.config();
 
-
 //import from app
 import route from './routes/index.js';
 import * as db from './config/db/index.js';
