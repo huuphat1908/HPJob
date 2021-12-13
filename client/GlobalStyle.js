@@ -9,8 +9,9 @@ const GlobalStyle = {
     },
     dimen: {
         paddingLeft: '8px',
+        fontSuperBig: '40px',
         fontBig: '24px',
-        fontMed: '19px',
+        fontMed: '20px',
         fontSmall: '16px'
     }
 };

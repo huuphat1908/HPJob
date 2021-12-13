@@ -9,13 +9,27 @@ export const Wrapper = styled.View`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding-left: ${GlobalStyle.dimen.paddingLeft};
+    padding-left: 24px;
 `;
 
 export const Title = styled.Text`
     color: ${GlobalStyle.color.lightGrey};
     padding-left: 24px;
-    font-size: ${GlobalStyle.dimen.fontBig};
+    font-size: ${GlobalStyle.dimen.fontMed};
+    font-weight: 700;
+`;
+
+export const SubMenu = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    padding-right: 24px;
+`;
+
+export const SubMenuItem = styled.View`
+    margin-left: 24px; 
 `;
 
 export const MenuWrapper = styled.View`
@@ -26,7 +40,6 @@ export const MenuWrapper = styled.View`
     right: 0;
     left: 0;
     height: 100%;
-    width: 80%;
 `;
 
 export const MenuItem = styled.View`
