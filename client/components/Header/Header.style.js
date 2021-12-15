@@ -40,10 +40,11 @@ export const MenuWrapper = styled.View`
     right: 0;
     left: 0;
     height: 100%;
+    z-index: 100;
 `;
 
 export const MenuItem = styled.View`
-    background: ${GlobalStyle.color.lightGrey};
+    background: ${props => props.pathname === props.location ? '#fff' : '#eee'};
     flex-direction: row;
     padding-top: 12px;
     padding-bottom: 12px;

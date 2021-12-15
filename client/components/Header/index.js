@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar, Platform, TouchableOpacity } from 'react-native';
 import { Link, useLocation } from 'react-router-native';
 import { FontAwesome5, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
@@ -51,16 +51,16 @@ const Header = () => {
             </Wrapper>
             {menuShown ?
                 <MenuWrapper offSetTop={offSetTop}>
-                    <Link to='/' onPress={handleMenu} component={TouchableOpacity}>
-                            <MenuItem>
-                                <MenuIcon>
-                                    <FontAwesome5 name='home' size={20} color='#1c1c1c' />
-                                </MenuIcon>
-                                <MenuText>Home</MenuText>
-                            </MenuItem>
+                    <Link to='/' onPress={handleMenu}>
+                        <MenuItem pathname='/' location={location.pathname}>
+                            <MenuIcon>
+                                <FontAwesome5 name='home' size={20} color='#1c1c1c' />
+                            </MenuIcon>
+                            <MenuText>Home</MenuText>
+                        </MenuItem>
                     </Link>
                     <Link to='/note' onPress={handleMenu}>
-                        <MenuItem>
+                        <MenuItem pathname='/note' location={location.pathname}>
                             <MenuIcon>
                                 <MaterialCommunityIcons name='notebook' size={20} color="#1c1c1c" />
                             </MenuIcon>
@@ -68,7 +68,7 @@ const Header = () => {
                         </MenuItem>
                     </Link>
                     <Link to='/archive' onPress={handleMenu}>
-                        <MenuItem>
+                        <MenuItem pathname='/archive' location={location.pathname}>
                             <MenuIcon>
                                 <FontAwesome5 name='archive' size={20} color="#1c1c1c" />
                             </MenuIcon>
@@ -76,7 +76,7 @@ const Header = () => {
                         </MenuItem>
                     </Link>
                     <Link to='/trash' onPress={handleMenu}>
-                        <MenuItem>
+                        <MenuItem pathname='/trash' location={location.pathname}>
                             <MenuIcon>
                                 <FontAwesome5 name='trash' size={20} color="#1c1c1c" />
                             </MenuIcon>
