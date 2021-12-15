@@ -43,6 +43,7 @@ export const MenuWrapper = styled.View`
 `;
 
 export const MenuItem = styled.View`
+    background: ${GlobalStyle.color.lightGrey};
     flex-direction: row;
     padding-top: 12px;
     padding-bottom: 12px;

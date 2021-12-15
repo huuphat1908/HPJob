@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, Platform } from 'react-native';
+import { StatusBar, Platform, TouchableOpacity } from 'react-native';
 import { Link, useLocation } from 'react-router-native';
 import { FontAwesome5, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -51,13 +51,13 @@ const Header = () => {
             </Wrapper>
             {menuShown ?
                 <MenuWrapper offSetTop={offSetTop}>
-                    <Link to='/' onPress={handleMenu}>
-                        <MenuItem>
-                            <MenuIcon>
-                                <FontAwesome5 name='home' size={20} color='#1c1c1c' />
-                            </MenuIcon>
-                            <MenuText>Home</MenuText>
-                        </MenuItem>
+                    <Link to='/' onPress={handleMenu} component={TouchableOpacity}>
+                            <MenuItem>
+                                <MenuIcon>
+                                    <FontAwesome5 name='home' size={20} color='#1c1c1c' />
+                                </MenuIcon>
+                                <MenuText>Home</MenuText>
+                            </MenuItem>
                     </Link>
                     <Link to='/note' onPress={handleMenu}>
                         <MenuItem>

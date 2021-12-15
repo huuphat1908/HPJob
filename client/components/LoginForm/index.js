@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar, TouchableOpacity, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Wrapper, Title, InputWrapper, Input, ForgotPassword, LoginBtn, TextBtn } from './LoginForm.style';
 
@@ -12,6 +13,7 @@ const LoginForm = () => {
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
         }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'red' }}>
                 <Wrapper offSetTop={offSetTop}>
                     <Title>HPReminder</Title>
                     <InputWrapper>
@@ -39,6 +41,7 @@ const LoginForm = () => {
                     </LoginBtn>
                     <TextBtn>Signup</TextBtn>
                 </Wrapper>
+            </ScrollView>
         </TouchableWithoutFeedback>
     )
 }

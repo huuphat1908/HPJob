@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { Provider } from 'react-redux';
 import { NativeRouter, Routes, Route } from 'react-router-native';
 import AppLoading from 'expo-app-loading';
@@ -8,15 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import store from './redux/store';
 import { getFonts, setCustomFont } from './configs/fonts';
 
-// screens
 import Header from './components/Header';
 
+// screens
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Note from './screens/Note';
 import Trash from './screens/Trash';
 import Archive from './screens/Archive';
-import LoginForm from './components/LoginForm';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -24,7 +23,7 @@ export default function App() {
 
   useEffect(() => {
     setCustomFont();
-    handleToken = async () => {
+    const handleToken = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
         if (token) {
@@ -34,17 +33,20 @@ export default function App() {
         console.log(error);
       }
     }
+    handleToken();
   }, []);
 
   if (fontsLoaded) {
-    if (!isLoggged) {
+    if (isLoggged) {
       return (
-        <LoginForm />
+        <SafeAreaView style={{ flex: 1 }}>
+          <Login />
+        </SafeAreaView>
       )
     } else return (
       <Provider store={store}>
         <NativeRouter>
-          <View>
+          <SafeAreaView style={{ flex: 1 }}>
             <Header />
             <Routes>
               <Route exact path='/' element={<Home />} />
@@ -52,7 +54,7 @@ export default function App() {
               <Route path='/archive' element={<Archive />} />
               <Route path='/trash' element={<Trash />} />
             </Routes>
-          </View>
+          </SafeAreaView>
         </NativeRouter>
       </Provider >
     );
