@@ -3,7 +3,7 @@ import { TransactionModel } from '../models/index.js';
 
 class TransactionController {
     //GET
-    getAllTranstion = async (req, res) => {
+    getAllTransaction = async (req, res) => {
         try {
             const transactions = await TransactionModel.find({});
             res.status(200).json(transactions);
