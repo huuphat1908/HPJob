@@ -1,24 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userApi from '../../api/userApi';
 
-export const noteSlice = createSlice({
-  name: 'counter',
+const signIn = createAsyncThunk('user/signIn', async(data, thunkAPI) => {
+  const token = await userApi.signIn();
+  return token;
+})
+
+export const userSlice = createSlice({
+  name: 'user',
   initialState: {
-    noteList: [],
+    token: '',
+    data: [],
+    loading: false
   },
   reducers: {
-    increment: (state) => {
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
-    },
+    increment(state) {
+      state.token = 'Haha'
+    }
   },
 });
 
-export const { increment, decrement, incrementByAmount } = noteSlice.actions;
+export const { increment } = userSlice.actions;
 
-export default noteSlice.reducer;
+export default userSlice.reducer;

@@ -7,24 +7,11 @@ const UserSchema = new Schema({
     username: { type: String, minLength: 6, maxLength: 20, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    labels: [
-        {
-            name: { type: String, required: true }, 
-            colorId: { type: mongoose.Types.ObjectId, required: true, ref: 'Color' },
-        }
-    ],
-    feedbacks: [
-        {
-            feedbackId: { type: mongoose.Types.ObjectId, required: true, ref: 'Feedback' }
-        }
-    ],
-    notes: [
-        {
-            noteId : { type: mongoose.Types.ObjectId, required: true, ref: 'Note' }
-        }
-    ]
-}, {
-    timestamps: true,
+    phoneNumber: { type: String, length: 10, default: '' },
+    address: { type: String, default: '' },
+    budget: { type: Number, default: 0 },
+    moneyUsed: { type: Number, default: 0 },
+    transaction: [{ type: mongoose.Types.ObjectId, ref: 'Transaction'}],
 });
 
 const UserModel =  mongoose.model('User', UserSchema);

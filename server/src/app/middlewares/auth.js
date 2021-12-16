@@ -7,7 +7,6 @@ const checkAuth = (req, res, next) => {
         if (token) {
             const tokenDecoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
             res.locals.token = tokenDecoded;
-            console.log(res.locals.token);
             next();
         }
     } catch(err) {

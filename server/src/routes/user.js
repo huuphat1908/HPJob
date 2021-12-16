@@ -6,16 +6,13 @@ const userRouter = express.Router();
 import { userController } from '../app/controllers/index.js';
 
 //authMiddleware
-import checkAuth from '..//app/middlewares/auth.js';
+import checkAuth from '../app/middlewares/auth.js';
 
 userRouter.get('/', checkAuth, userController.getAllUser);
 userRouter.get('/:id', checkAuth, userController.getOneUser);
 
 userRouter.post('/sign-up', userController.createUser);
 userRouter.post('/sign-in', userController.authenticateUser);
-
-userRouter.delete('/', checkAuth, userController.deleteAllUser);
-userRouter.delete('/:id', checkAuth, userController.deleteOneUser);
 
 userRouter.patch('/:id', checkAuth, userController.modifyUser);
 
