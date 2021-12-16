@@ -3,11 +3,10 @@ import styled from 'styled-components/native';
 import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
-    margin-top: ${props => props.offSetTop}px;
     justify-content: center;
     align-items: center;
     background: #003f5c;
-    flex: 1;
+    height: ${props => props.safeAreaHeight}px;
 `;
 
 export const Title = styled.Text`
@@ -19,7 +18,7 @@ export const Title = styled.Text`
 
 export const InputWrapper = styled.View`
     width: 80%;
-    background: #465881;
+    background: white;
     border-radius: 25px;
     height: 60px;
     margin-bottom: 20px;
@@ -29,7 +28,12 @@ export const InputWrapper = styled.View`
 
 export const Input = styled.TextInput`
     height: 50px;
-    color: white;
+    color: #465881;
+`;
+
+export const ErrorText = styled.Text`
+    color: red;
+    padding-bottom: 20px;
 `;
 
 export const ForgotPassword = styled.Text`

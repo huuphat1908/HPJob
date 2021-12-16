@@ -2,9 +2,10 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-    baseURL: process.env.API_URL || 'localhost:3000/',
+    baseURL: process.env.API_URL || 'localhost:3000/api/',
     headers: {
-        'content-type': 'application/json' 
+        'accept': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
     },
     paramsSerializer: params => queryString.stringify(params),
 });

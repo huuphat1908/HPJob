@@ -5,7 +5,6 @@ import GlobalStyle from '../../GlobalStyle';
 export const Wrapper = styled.View`
     height: 70px;
     background: ${GlobalStyle.color.darkGrey}; 
-    margin-top: ${props => props.offSetTop}px;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -33,7 +32,6 @@ export const SubMenuItem = styled.View`
 `;
 
 export const MenuWrapper = styled.View`
-    padding-top: ${props => props.offSetTop}px;
     background: ${GlobalStyle.color.lightGrey};
     top: 0;
     bottom: 0;

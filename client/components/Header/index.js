@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StatusBar, Platform, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-native';
 import { FontAwesome5, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -9,7 +8,6 @@ const Header = () => {
     const [menuShown, setMenuShown] = useState(false);
     const [title, setTitle] = useState('Home');
     const location = useLocation();
-    const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 
     const handleMenu = () => {
         setMenuShown(!menuShown);
@@ -37,7 +35,7 @@ const Header = () => {
 
     return (
         <>
-            <Wrapper offSetTop={offSetTop}>
+            <Wrapper>
                 <FontAwesome5 name='bars' size={20} color='#e5e5e5' onPress={handleMenu} />
                 <Title>{title}</Title>
                 <SubMenu>
@@ -50,7 +48,7 @@ const Header = () => {
                 </SubMenu>
             </Wrapper>
             {menuShown ?
-                <MenuWrapper offSetTop={offSetTop}>
+                <MenuWrapper>
                     <Link to='/' onPress={handleMenu}>
                         <MenuItem pathname='/' location={location.pathname}>
                             <MenuIcon>
