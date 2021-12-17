@@ -7,6 +7,7 @@ import { Wrapper, Title, SubMenu, SubMenuItem, MenuWrapper, MenuItem, MenuIcon, 
 const Header = () => {
     const [menuShown, setMenuShown] = useState(false);
     const [title, setTitle] = useState('Home');
+    const [isShown, setIsShown] = useState(true);
     const location = useLocation();
 
     const handleMenu = () => {
@@ -15,19 +16,26 @@ const Header = () => {
 
     useEffect(() => {
         switch (location.pathname) {
+            case '/login': 
+                setIsShown(false);
             case '/':
+                setIsShown(true);
                 setTitle('Home');
                 break;
             case '/note':
+                setIsShown(true);
                 setTitle('Note');
                 break;
             case '/note':
+                setIsShown(true);
                 setTitle('Note');
                 break;
             case '/archive':
+                setIsShown(true);
                 setTitle('Archive');
                 break;
             case '/trash':
+                setIsShown(true);
                 setTitle('Trash');
                 break;
         }
@@ -35,7 +43,7 @@ const Header = () => {
 
     return (
         <>
-            <Wrapper>
+            <Wrapper isShown={isShown}>
                 <FontAwesome5 name='bars' size={20} color='#e5e5e5' onPress={handleMenu} />
                 <Title>{title}</Title>
                 <SubMenu>

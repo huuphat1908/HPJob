@@ -42,17 +42,20 @@ class UserController {
     authenticateUser = async (req, res) => {
         const input = req.body;
         const user = await UserModel.findOne({ email: input.email });
-        const isValidPassword = await bcrypt.compare(input.password, user.password);
-        if (isValidPassword) {
-            const token = jwt.sign({
-                username: user.username,
-                role: user.role
-            },
-                process.env.ACCESS_TOKEN_KEY
-            );
-            res.status(200).json({ token });
+        if (user) {
+            const isValidPassword = await bcrypt.compare(input.password, user.password);
+            if (isValidPassword) {
+                const token = jwt.sign({
+                    username: user.username,
+                    role: user.role
+                },
+                    process.env.ACCESS_TOKEN_KEY
+                );
+                return res.status(200).json({ token });
+            } else {
+            }
         } else {
-            res.status(401).json({
+            return res.status(400).json({
                 error: 'Wrong email or password'
             });
         }
@@ -68,12 +71,6 @@ class UserController {
         } catch (error) {
             res.status(400).send(error);
         }
-    }
-
-    arsenal = async (req, res) => {
-        res.json({
-            club: 'arsenal'
-        })
     }
 }
 

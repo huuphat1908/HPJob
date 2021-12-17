@@ -1,18 +1,17 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
-    signIn: (data) => {
+    signIn: (email, password) => {
         const url = '/users/sign-in';
         return axiosClient({
             url,
             method: 'post',
-            data
+            data: {
+                email,
+                password
+            }
         });
     },
-    arsenal: () => {
-        const url = '/users/arsenal';
-        return axiosClient.get(url);
-    }
 };
 
 export default userApi;

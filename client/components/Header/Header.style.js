@@ -9,6 +9,7 @@ export const Wrapper = styled.View`
     justify-content: flex-start;
     align-items: center;
     padding-left: 24px;
+    display: ${props => props.isShown ? 'none' : 'flex'};
 `;
 
 export const Title = styled.Text`

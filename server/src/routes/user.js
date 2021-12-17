@@ -16,6 +16,4 @@ userRouter.post('/sign-in', userController.authenticateUser);
 
 userRouter.patch('/:id', checkAuth, userController.modifyUser);
 
-userRouter.get('/arsenal', userController.arsenal);
-
 export default userRouter;

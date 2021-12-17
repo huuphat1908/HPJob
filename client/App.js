@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 import { NativeRouter, Routes, Route } from 'react-router-native';
 import AppLoading from 'expo-app-loading';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getFonts, setCustomFont } from './configs/fonts';
 
@@ -17,45 +16,26 @@ import Archive from './screens/Archive';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const [isLoggged, setIsLogged] = useState(false);
   const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 
   useEffect(() => {
     setCustomFont();
-
-    const handleToken = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        if (token) {
-          setIsLogged(true);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    handleToken();
   }, []);
 
   if (fontsLoaded) {
-    if (!isLoggged) {
-      return (
-        <SafeAreaView style={{ flex: 1, paddingTop: offSetTop }}>
-          <Login />
-        </SafeAreaView>
-      )
-    } else return (
+    return (
       <NativeRouter>
         <SafeAreaView style={{ flex: 1, paddingTop: offSetTop }}>
           <Header />
           <Routes>
             <Route exact path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/note' element={<Note />} />
             <Route path='/archive' element={<Archive />} />
             <Route path='/trash' element={<Trash />} />
           </Routes>
         </SafeAreaView>
-      </NativeRouter>
+      </NativeRouter >
     );
   } else {
     return (

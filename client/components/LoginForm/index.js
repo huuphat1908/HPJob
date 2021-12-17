@@ -3,9 +3,12 @@ import { TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions, Statu
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
 import { Wrapper, Title, InputWrapper, Input, ErrorText, ForgotPassword, LoginBtn, TextBtn } from './LoginForm.style';
-import userApi from '../../api/userApi';
+import { saveUserInfo, signIn } from '../../redux/slices/userSlice';
+import { useNavigate } from 'react-router-native';
 
 let loginSchema = yup.object({
     email: yup.string().required().email(),
@@ -13,6 +16,9 @@ let loginSchema = yup.object({
 });
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const windowHeight = Dimensions.get('window').height;
     const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
     const safeAreaHeight = parseInt(windowHeight) - parseInt(offSetTop);
@@ -27,8 +33,12 @@ const LoginForm = () => {
                     validationSchema={loginSchema}
                     onSubmit={async (values) => {
                         try {
-                            console.log(values);
+                            const data = await dispatch(signIn(values)).unwrap();
+                            dispatch(saveUserInfo());
+                            await SecureStore.setItemAsync('token', data.token);
+                            navigate('/');
                         } catch (error) {
+                            alert('Wrong email or password');
                             console.log(error);
                         }
                     }}
