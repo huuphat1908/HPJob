@@ -29,13 +29,9 @@ class UserController {
     //POST
     createUser = async (req, res) => {
         const input = req.body;
-        const inputValidated = userValidationSchema.validate(input);
-        if (inputValidated.error) {
-            return res.status(400).send(inputValidated.error.details[0].message);
-        }
-        inputValidated.value.password = await bcrypt.hash(inputValidated.value.password, saltRounds);
+        input.password = await bcrypt.hash(input.password, saltRounds);
         try {
-            const newUser = new UserModel(inputValidated.value);
+            const newUser = new UserModel(input);
             await newUser.save();
             res.status(201).json(newUser);
         } catch (error) {
@@ -45,20 +41,15 @@ class UserController {
 
     authenticateUser = async (req, res) => {
         const input = req.body;
-        const inputValidated = userValidationSchema.validate(input);
-        if (inputValidated.error) {
-            return res.status(400).send(inputValidated.error.details[0].message);
-        }
-        const user = await UserModel.findOne({ email: inputValidated.value.email });
-        const isValidPassword = await bcrypt.compare(inputValidated.value.password, user.password);
+        const user = await UserModel.findOne({ email: input.email });
+        const isValidPassword = await bcrypt.compare(input.password, user.password);
         if (isValidPassword) {
             const token = jwt.sign({
                 username: user.username,
                 role: user.role
             },
-            process.env.ACCESS_TOKEN_KEY, {
-                expiresIn: '14d'
-            });
+                process.env.ACCESS_TOKEN_KEY
+            );
             res.status(200).json({ token });
         } else {
             res.status(401).json({
@@ -77,6 +68,12 @@ class UserController {
         } catch (error) {
             res.status(400).send(error);
         }
+    }
+
+    arsenal = async (req, res) => {
+        res.json({
+            club: 'arsenal'
+        })
     }
 }
 

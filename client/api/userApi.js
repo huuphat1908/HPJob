@@ -8,6 +8,13 @@ const userApi = {
             method: 'post',
             data
         });
+    },
+    arsenal: () => {
+        const url = '/users/arsenal';
+        return axiosClient({
+            url,
+            method: 'get'
+        })
     }
 };
 

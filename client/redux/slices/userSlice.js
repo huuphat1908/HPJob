@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userApi from '../../api/userApi';
 
-const signIn = createAsyncThunk('user/signIn', async(data, thunkAPI) => {
-  const token = await userApi.signIn();
+export const signIn = createAsyncThunk('user/signIn', async(data, thunkAPI) => {
+  const token = await userApi.signIn(data);
   return token;
 })
 
@@ -10,7 +10,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     token: '',
-    data: [],
+    user: [],
     loading: false
   },
   reducers: {
@@ -18,6 +18,11 @@ export const userSlice = createSlice({
       state.token = 'Haha'
     }
   },
+  extraReducers:  (builder) => {
+    builder.addCase(signIn.fulfilled, (state, action) => {
+      state.user = action.payload;
+    })
+  }
 });
 
 export const { increment } = userSlice.actions;
