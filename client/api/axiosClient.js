@@ -2,7 +2,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-    baseURL: 'localhost:3000/api',
+    baseURL: 'http://192.168.1.3:3000/api',
     headers: {
         'accept': 'application/json',
         'content-type': 'application/x-www-form-urlencoded',

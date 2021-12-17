@@ -11,10 +11,7 @@ const userApi = {
     },
     arsenal: () => {
         const url = '/users/arsenal';
-        return axiosClient({
-            url,
-            method: 'get'
-        })
+        return axiosClient.get(url);
     }
 };
 
