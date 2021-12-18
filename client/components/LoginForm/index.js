@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 
 import { Wrapper, Title, InputWrapper, Input, ErrorText, ForgotPassword, LoginBtn, TextBtn } from './LoginForm.style';
-import { saveUserInfo, signIn } from '../../redux/slices/userSlice';
+import { signIn } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-native';
 
 let loginSchema = yup.object({
@@ -34,7 +34,6 @@ const LoginForm = () => {
                     onSubmit={async (values) => {
                         try {
                             const data = await dispatch(signIn(values)).unwrap();
-                            dispatch(saveUserInfo());
                             await SecureStore.setItemAsync('token', data.token);
                             navigate('/');
                         } catch (error) {
@@ -45,7 +44,7 @@ const LoginForm = () => {
                 >
                     {({ values, handleChange, handleSubmit, handleBlur, touched, errors }) => (
                         <Wrapper safeAreaHeight={safeAreaHeight}>
-                            <Title>HPReminder</Title>
+                            <Title>HPJob</Title>
                             <InputWrapper>
                                 <Input
                                     name='email'

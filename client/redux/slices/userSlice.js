@@ -8,33 +8,37 @@ export const signIn = createAsyncThunk('user/signIn', async ({ email, password }
   return data;
 });
 
+export const getUserInfo = createAsyncThunk('user/getUserInfo', async() => {
+  const data = await userApi.getUserInfo();
+  return data;
+})
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     isLoggedIn: false,
-    token: '',
     current: {},
     loading: false
   },
   reducers: {
-    persistLogin(state, action) {
-      state.token = action.payload;
+    persistLogin(state) {
       state.isLoggedIn = true;
     },
-    saveUserInfo(state) {
-      const decodedToken = jwt_decode(state.token);
-      state.current = {...decodedToken};
-    },
+    logout(state) {
+      state.isLoggedIn = false;
+    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signIn.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+      .addCase(signIn.fulfilled, (state) => {
         state.isLoggedIn = true;
+      })
+      .addCase(getUserInfo.fulfilled, (state, action) => {
+        state.current = {...action.payload};
       })
   }
 });
 
-export const { saveUserInfo, persistLogin } = userSlice.actions;
+export const { persistLogin, logout } = userSlice.actions;
 
 export default userSlice.reducer;

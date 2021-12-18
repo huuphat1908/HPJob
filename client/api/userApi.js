@@ -12,6 +12,13 @@ const userApi = {
             }
         });
     },
+    getUserInfo: () => {
+        const url = '/users/me';
+        return axiosClient({
+            url,
+            method: 'get'
+        })
+    }
 };
 
 export default userApi;
