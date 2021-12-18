@@ -16,9 +16,9 @@ class UserController {
         }
     };
 
-    getOneUser = async (req, res) => {
+    getUserInfo = async (req, res) => {
         try {
-            const id = req.params.id;
+            const id = res.locals.userId;
             const userFound = await UserModel.findById(id);
             res.status(200).json(userFound);
         } catch (error) {

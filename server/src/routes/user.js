@@ -9,7 +9,7 @@ import { userController } from '../app/controllers/index.js';
 import { checkAuth } from '../app/middlewares/auth.js';
 
 userRouter.get('/', checkAuth, userController.getAllUser);
-userRouter.get('/:id', checkAuth, userController.getOneUser);
+userRouter.get('/me', checkAuth, userController.getUserInfo);
 
 userRouter.post('/sign-up', userController.createUser);
 userRouter.post('/sign-in', userController.authenticateUser);

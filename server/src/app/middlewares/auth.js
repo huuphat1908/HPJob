@@ -6,8 +6,7 @@ export const checkAuth = (req, res, next) => {
         const token = authorizationHeader.split(' ')[1];
         if (token) {
             const tokenDecoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
-            console.log(tokenDecoded);
-            res.locals.token = tokenDecoded;
+            res.locals.userId = tokenDecoded.userId;
             next();
         }
     } catch(err) {
