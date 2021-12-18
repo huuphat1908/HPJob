@@ -29,8 +29,8 @@ class UserController {
     //POST
     createUser = async (req, res) => {
         const input = req.body;
-        input.password = await bcrypt.hash(input.password, saltRounds);
         try {
+            input.password = await bcrypt.hash(input.password, saltRounds);
             const newUser = new UserModel(input);
             await newUser.save();
             res.status(201).json(newUser);
