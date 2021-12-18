@@ -10,9 +10,7 @@ import Header from './components/Header';
 // screens
 import Login from './screens/Login';
 import Home from './screens/Home';
-import Note from './screens/Note';
-import Trash from './screens/Trash';
-import Archive from './screens/Archive';
+import Profile from './screens/Profile';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -30,9 +28,7 @@ export default function App() {
           <Routes>
             <Route exact path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/note' element={<Note />} />
-            <Route path='/archive' element={<Archive />} />
-            <Route path='/trash' element={<Trash />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </SafeAreaView>
       </NativeRouter >

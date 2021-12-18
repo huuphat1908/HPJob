@@ -9,7 +9,6 @@ export const Wrapper = styled.View`
     justify-content: flex-start;
     align-items: center;
     padding-left: 24px;
-    display: ${props => props.isShown ? 'none' : 'flex'};
 `;
 
 export const Title = styled.Text`
@@ -19,21 +18,8 @@ export const Title = styled.Text`
     font-weight: 700;
 `;
 
-export const SubMenu = styled.View`
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 0;
-    padding-right: 24px;
-`;
-
-export const SubMenuItem = styled.View`
-    margin-left: 24px; 
-`;
-
 export const MenuWrapper = styled.View`
-    background: ${GlobalStyle.color.lightGrey};
+    background: #fff;
     top: 0;
     bottom: 0;
     right: 0;
@@ -43,7 +29,14 @@ export const MenuWrapper = styled.View`
 `;
 
 export const MenuItem = styled.View`
-    background: ${props => props.pathname === props.location ? '#fff' : '#eee'};
+    background: ${props => props.pathname == props.location ? '#eee' : '#fff'};
+    flex-direction: row;
+    padding-top: 12px;
+    padding-bottom: 12px;
+`;
+
+export const MenuItemLogout = styled.View`
+    background: #fff;
     flex-direction: row;
     padding-top: 12px;
     padding-bottom: 12px;

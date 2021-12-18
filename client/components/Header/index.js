@@ -1,61 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-native';
-import { FontAwesome5, MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
-import { Wrapper, Title, SubMenu, SubMenuItem, MenuWrapper, MenuItem, MenuIcon, MenuText } from './Header.style';
+import { Wrapper, Title, MenuWrapper, MenuItem, MenuItemLogout, MenuIcon, MenuText } from './Header.style';
+import { logout } from '../../redux/slices/userSlice';
 
 const Header = () => {
+    const location = useLocation();
+    const dispatch = useDispatch();
+
     const [menuShown, setMenuShown] = useState(false);
     const [title, setTitle] = useState('Home');
-    const [isShown, setIsShown] = useState(true);
-    const location = useLocation();
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
     const handleMenu = () => {
         setMenuShown(!menuShown);
     };
 
+    const handleLogout = async () => {
+        await SecureStore.deleteItemAsync('token');
+        dispatch(logout());
+    }
+
     useEffect(() => {
         switch (location.pathname) {
-            case '/login': 
-                setIsShown(false);
             case '/':
-                setIsShown(true);
                 setTitle('Home');
                 break;
-            case '/note':
-                setIsShown(true);
-                setTitle('Note');
-                break;
-            case '/note':
-                setIsShown(true);
-                setTitle('Note');
-                break;
-            case '/archive':
-                setIsShown(true);
-                setTitle('Archive');
-                break;
-            case '/trash':
-                setIsShown(true);
-                setTitle('Trash');
+            case '/profile':
+                setTitle('Profile');
                 break;
         }
     }, [location]);
 
     return (
         <>
-            <Wrapper isShown={isShown}>
-                <FontAwesome5 name='bars' size={20} color='#e5e5e5' onPress={handleMenu} />
-                <Title>{title}</Title>
-                <SubMenu>
-                    <SubMenuItem>
-                        <MaterialIcons name='note-add' size={20} color='#e5e5e5' />
-                    </SubMenuItem>
-                    <SubMenuItem>
-                        <Entypo name='dots-three-vertical' size={20} color='#e5e5e5' />
-                    </SubMenuItem>
-                </SubMenu>
-            </Wrapper>
-            {menuShown ?
+            {isLoggedIn ?
+                <Wrapper>
+                    <FontAwesome5 name='bars' size={20} color='#e5e5e5' onPress={handleMenu} />
+                    <Title>{title}</Title>
+                </Wrapper> : null
+            }
+            {menuShown && isLoggedIn ?
                 <MenuWrapper>
                     <Link to='/' onPress={handleMenu}>
                         <MenuItem pathname='/' location={location.pathname}>
@@ -65,30 +53,20 @@ const Header = () => {
                             <MenuText>Home</MenuText>
                         </MenuItem>
                     </Link>
-                    <Link to='/note' onPress={handleMenu}>
-                        <MenuItem pathname='/note' location={location.pathname}>
+                    <Link to='/profile' onPress={handleMenu}>
+                        <MenuItem pathname='/profile' location={location.pathname}>
                             <MenuIcon>
-                                <MaterialCommunityIcons name='notebook' size={20} color="#1c1c1c" />
+                                <AntDesign name='user' size={20} color='#1c1c1c' />
                             </MenuIcon>
-                            <MenuText>Note</MenuText>
+                            <MenuText>Profile</MenuText>
                         </MenuItem>
                     </Link>
-                    <Link to='/archive' onPress={handleMenu}>
-                        <MenuItem pathname='/archive' location={location.pathname}>
-                            <MenuIcon>
-                                <FontAwesome5 name='archive' size={20} color="#1c1c1c" />
-                            </MenuIcon>
-                            <MenuText>Archive</MenuText>
-                        </MenuItem>
-                    </Link>
-                    <Link to='/trash' onPress={handleMenu}>
-                        <MenuItem pathname='/trash' location={location.pathname}>
-                            <MenuIcon>
-                                <FontAwesome5 name='trash' size={20} color="#1c1c1c" />
-                            </MenuIcon>
-                            <MenuText>Trash</MenuText>
-                        </MenuItem>
-                    </Link>
+                    <MenuItemLogout onPress={handleLogout}>
+                        <MenuIcon>
+                            <AntDesign name='logout' size={20} color='#1c1c1c' />
+                        </MenuIcon>
+                        <MenuText>Logout</MenuText>
+                    </MenuItemLogout>
                 </MenuWrapper> : null
             }
         </>
