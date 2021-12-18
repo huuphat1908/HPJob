@@ -46,13 +46,15 @@ class UserController {
             const isValidPassword = await bcrypt.compare(input.password, user.password);
             if (isValidPassword) {
                 const token = jwt.sign({
-                    username: user.username,
-                    role: user.role
+                    userId: user.id
                 },
                     process.env.ACCESS_TOKEN_KEY
                 );
                 return res.status(200).json({ token });
             } else {
+                return res.status(400).json({
+                    error: 'Wrong email or passwor'
+                })
             }
         } else {
             return res.status(400).json({

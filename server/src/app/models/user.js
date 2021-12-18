@@ -7,11 +7,16 @@ const UserSchema = new Schema({
     username: { type: String, minLength: 6, maxLength: 20, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    phoneNumber: { type: String, length: 10, default: '' },
-    address: { type: String, default: '' },
-    budget: { type: Number, default: 0 },
-    moneyUsed: { type: Number, default: 0 },
-    transaction: [{ type: mongoose.Types.ObjectId, ref: 'Transaction'}],
+    phoneNumber: { type: String, length: 10, required: true },
+    jobTitle: { type: String, default: '' },
+    coverLetter: { type: String, default: '' },
+    portfolio: { type: String, default: '' },
+    applyToJob: [{
+        jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
+    }],
+    jobPosted: [{
+        jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
+    }]
 });
 
 const UserModel =  mongoose.model('User', UserSchema);
