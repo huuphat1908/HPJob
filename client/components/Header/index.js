@@ -61,12 +61,14 @@ const Header = () => {
                             <MenuText>Profile</MenuText>
                         </MenuItem>
                     </Link>
-                    <MenuItemLogout onPress={handleLogout}>
-                        <MenuIcon>
-                            <AntDesign name='logout' size={20} color='#1c1c1c' />
-                        </MenuIcon>
-                        <MenuText>Logout</MenuText>
-                    </MenuItemLogout>
+                    <Link to='/login' onPress={handleLogout}>
+                        <MenuItemLogout>
+                            <MenuIcon>
+                                <AntDesign name='logout' size={20} color='#1c1c1c' />
+                            </MenuIcon>
+                            <MenuText>Logout</MenuText>
+                        </MenuItemLogout>
+                    </Link>
                 </MenuWrapper> : null
             }
         </>

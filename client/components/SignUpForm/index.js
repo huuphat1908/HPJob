@@ -1,24 +1,23 @@
 import React from 'react';
-import { TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions, StatusBar, Platform } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, Dimensions, StatusBar, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
 import { Link } from 'react-router-native';
 
-import { Wrapper, Title, InputWrapper, Input, ErrorText, ForgotPassword, LoginBtn, TextBtn } from './LoginForm.style';
-import { signIn } from '../../redux/slices/userSlice';
-import { useNavigate } from 'react-router-native';
+import { Wrapper, Title, InputWrapper, Input, ErrorText, LoginBtn, TextBtn } from './SignUpForm.style';
+import { signUp } from '../../redux/slices/userSlice';
 
 let loginSchema = yup.object({
+    username: yup.string().required().min(5),
     email: yup.string().required().email(),
-    password: yup.string().required().min(6).max(20)
+    phoneNumber: yup.string().length(10),
+    password: yup.string().required().min(6).max(20),
 });
 
-const LoginForm = () => {
+const SignUpForm = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const windowHeight = Dimensions.get('window').height;
     const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
@@ -32,20 +31,40 @@ const LoginForm = () => {
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     validationSchema={loginSchema}
-                    onSubmit={async (values) => {
+                    onSubmit={async (values, actions) => {
                         try {
-                            const data = await dispatch(signIn(values)).unwrap();
-                            await SecureStore.setItemAsync('token', data.token);
-                            navigate('/');
+                            await dispatch(signUp(values)).unwrap();
+                            actions.resetForm();
+                            alert('Sign up successfully');
                         } catch (error) {
-                            alert('Wrong email or password');
-                            console.log(error);
+                            if (error.message == 'Request failed with status code 409') {
+                                alert('This email is already registered');
+                            }
+                            else {
+                                alert('Something went wrong');
+                                console.log(error);
+                            }
                         }
                     }}
                 >
                     {({ values, handleChange, handleSubmit, handleBlur, touched, errors }) => (
                         <Wrapper safeAreaHeight={safeAreaHeight}>
                             <Title>HPJob</Title>
+                            <InputWrapper>
+                                <Input
+                                    name='username'
+                                    placeholder='Username...'
+                                    placeholderTextColor={'#000f5c'}
+                                    autoCompleteType='off'
+                                    onChangeText={handleChange('username')}
+                                    onBlur={handleBlur('username')}
+                                    value={values.username}
+                                />
+                            </InputWrapper>
+                            {(touched.username && errors.username) ?
+                                <ErrorText>{touched.username && errors.username}</ErrorText>
+                                : null
+                            }
                             <InputWrapper>
                                 <Input
                                     name='email'
@@ -59,6 +78,22 @@ const LoginForm = () => {
                             </InputWrapper>
                             {(touched.email && errors.email) ?
                                 <ErrorText>{touched.email && errors.email}</ErrorText>
+                                : null
+                            }
+                            <InputWrapper>
+                                <Input
+                                    name='phoneNumber'
+                                    placeholder='Phone number...'
+                                    placeholderTextColor={'#000f5c'}
+                                    autoCompleteType='off'
+                                    keyboardType='numeric'
+                                    onChangeText={handleChange('phoneNumber')}
+                                    onBlur={handleBlur('phoneNumber')}
+                                    value={values.phoneNumber}
+                                />
+                            </InputWrapper>
+                            {(touched.phoneNumber && errors.phoneNumber) ?
+                                <ErrorText>{touched.phoneNumber && errors.phoneNumber}</ErrorText>
                                 : null
                             }
                             <InputWrapper>
@@ -77,14 +112,11 @@ const LoginForm = () => {
                                 <ErrorText>{touched.password && errors.password}</ErrorText>
                                 : null
                             }
-                            <TouchableOpacity>
-                                <ForgotPassword>Forgot Password?</ForgotPassword>
-                            </TouchableOpacity>
                             <LoginBtn onPress={handleSubmit}>
-                                <TextBtn>Login</TextBtn>
+                                <TextBtn>Sign up</TextBtn>
                             </LoginBtn>
-                            <Link to='/sign-up'>
-                                <TextBtn>Signup</TextBtn>
+                            <Link to='/login'>
+                                <TextBtn>Back to login</TextBtn>
                             </Link>
                         </Wrapper>
                     )}
@@ -94,4 +126,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm;
+export default SignUpForm;

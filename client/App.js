@@ -9,6 +9,7 @@ import Header from './components/Header';
 
 // screens
 import Login from './screens/Login';
+import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 
@@ -28,6 +29,7 @@ export default function App() {
           <Routes>
             <Route exact path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
           </Routes>
         </SafeAreaView>

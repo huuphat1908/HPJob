@@ -30,12 +30,24 @@ class UserController {
     createUser = async (req, res) => {
         const input = req.body;
         try {
+            const duplicateUser = await UserModel.find({ email: input.email });
+            if (duplicateUser.length != 0) {
+                return res.status(409).json({
+                    error: 'This email is already registered'
+                });
+            }
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Something went wrong'
+            })
+        }
+        try {
             input.password = await bcrypt.hash(input.password, saltRounds);
             const newUser = new UserModel(input);
             await newUser.save();
-            res.status(201).json(newUser);
+            return res.status(201).json(newUser);
         } catch (error) {
-            res.status(400).send(error);
+            return res.status(500).send(error);
         }
     }
 

@@ -13,9 +13,9 @@
     "axios": "^0.24.0",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
+    "expo-secure-store": "~11.0.3",
     "expo-status-bar": "~1.1.0",
     "formik": "^2.2.9",
-    "jwt-decode": "^3.1.2",
     "query-string": "^7.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -28,8 +28,7 @@
     "react-redux": "^7.2.6",
     "react-router-native": "^6.0.2",
     "styled-components": "^5.3.3",
-    "yup": "^0.32.11",
-    "expo-secure-store": "~11.0.3"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
