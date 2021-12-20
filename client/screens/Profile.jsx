@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { useSelector } from 'react-redux';
+import { ScrollView } from 'react-native';
 
-const Home = () => {
-    const user = useSelector(state => state.user.current);
+import ProfileHeader from '../components/ProfileHeader';
+import UserInfo from '../components/UserInfo';
 
+const Profile = () => {
     return (
-        <View>
-            <Text>Username: {user.username}</Text>
-            <Text>Role: {user.role}</Text>
-        </View>
+        <ScrollView>
+            <ProfileHeader />
+            <UserInfo />
+        </ScrollView>
     );
 };
 
-export default Home;
+export default Profile;

@@ -11,6 +11,8 @@ const UserSchema = new Schema({
     jobTitle: { type: String, default: '' },
     coverLetter: { type: String, default: '' },
     portfolio: { type: String, default: '' },
+    avatar: { type: String, default: '' },
+    background: { type: String, default: '' },
     applyToJob: [{
         jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
     }],

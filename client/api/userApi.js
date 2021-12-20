@@ -14,6 +14,7 @@ const userApi = {
             }
         });
     },
+
     signIn: (email, password) => {
         const url = '/users/sign-in';
         return axiosClient({
@@ -25,11 +26,21 @@ const userApi = {
             }
         });
     },
+
     getUserInfo: () => {
         const url = '/users/me';
         return axiosClient({
             url,
             method: 'get'
+        })
+    },
+
+    modifyUser: (user) => {
+        const url = '/users';
+        return axiosClient({
+            url,
+            method: 'patch',
+            data: user
         })
     }
 };

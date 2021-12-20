@@ -78,7 +78,7 @@ class UserController {
     //PUT
     modifyUser = async (req, res) => {
         try {
-            const id = req.params.id;
+            const id = req.body._id;
             const userInput = req.body;
             const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true });
             res.status(200).json(userModified);
