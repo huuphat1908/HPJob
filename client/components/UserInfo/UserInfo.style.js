@@ -17,7 +17,7 @@ export const InfoLine = styled.View`
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;
-    height: 60px;
+    min-height: 60px;
     padding: 10px 20px;
     margin-bottom: 20px;
     border-radius: 20px;
@@ -43,4 +43,18 @@ export const InfoIcon = styled.View`
     width: 20%;
     justify-content: center;
     align-items: center;
+`;
+
+export const EditUserWrapper = styled.TouchableOpacity`
+    margin: 16px 0;
+    padding: 10px 0;
+    background: ${GlobalStyle.color.medGrey};
+    border-radius: 20px;
+    width: 90%;
+`;
+
+export const EditUserText = styled.Text`
+    text-align: center;
+    font-size: 24px;
+    color: ${GlobalStyle.color.lightGrey};
 `;

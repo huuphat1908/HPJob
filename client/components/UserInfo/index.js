@@ -1,19 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { TouchableOpacity, Linking, Alert } from 'react-native';
+import { TouchableOpacity, Linking, Alert, Modal } from 'react-native';
 import { useSelector } from 'react-redux';
-import { MaterialIcons, FontAwesome, Ionicons, Foundation } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, Foundation, FontAwesome5 } from '@expo/vector-icons';
 
-import { Wrapper, Content, InfoLine, InfoIcon, InfoText, Title, Detail } from './UserInfo.style';
+import { Wrapper, Content, InfoLine, InfoIcon, InfoText, Title, Detail, EditUserWrapper, EditUserText } from './UserInfo.style';
 import GlobalStyle from '../../GlobalStyle';
-import AlertPrompt from '../AlertPrompt';
+import UserForm from '../UserForm';
 
 const UserInfo = () => {
     const user = useSelector(state => state.user.current);
-    const [modalProps, setModalProps] = useState({
-        title: '',
-        acceptText: '',
-        visible: false
-    });
+    const [visibleModal, setVisibleModal] = useState(false);
 
     const handleUrl = useCallback(async (url) => {
         const isSupported = await Linking.canOpenURL(url);
@@ -24,27 +20,15 @@ const UserInfo = () => {
         }
     });
 
-    const handleAlertPrompt = (title, acceptText) => {
-        setModalProps({
-            title,
-            acceptText,
-            visible: true
-        })
+    const handleModal = () => {
+        setVisibleModal(!visibleModal);
     }
 
     return (
         <>
-            {modalProps.visible ?
-                <AlertPrompt
-                    title={modalProps.title}
-                    acceptText={modalProps.acceptText}
-                    closeModal={() => setModalProps({
-                        title: modalProps.title,
-                        acceptText: modalProps.acceptText,
-                        visible: false
-                    }
-                    )} /> : null
-            }
+            <Modal visible={visibleModal}>
+                <UserForm />
+            </Modal>
             <Wrapper>
                 <Content>
                     <InfoLine>
@@ -78,47 +62,38 @@ const UserInfo = () => {
                     <InfoLine>
                         <InfoText>
                             <Title>Job Title</Title>
-                            <Detail>{user.jobTitle ? user.jobTitle : 'Click icon to add'}</Detail>
+                            <Detail>{user.jobTitle}</Detail>
                         </InfoText>
-                        {user.jobTitle ? null :
-                            <InfoIcon>
-                                <TouchableOpacity onPress={() => handleAlertPrompt('job title', 'Add job title')}>
-                                    <Ionicons name='add' size={32} color={`${GlobalStyle.color.darkGrey}`} />
-                                </TouchableOpacity>
-                            </InfoIcon>
-                        }
                     </InfoLine>
                     <InfoLine>
                         <InfoText>
                             <Title>Cover Letter</Title>
-                            <Detail>{user.coverLetter ? user.coverLetter : 'Click icon to add'}</Detail>
+                            <Detail>{user.coverLetter}</Detail>
                         </InfoText>
                         {user.coverLetter ?
                             <InfoIcon>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleUrl(`https://${user.coverLetter}`)}>
                                     <Foundation name='clipboard-notes' size={32} color={`${GlobalStyle.color.darkGrey}`} />
                                 </TouchableOpacity>
-                            </InfoIcon> :
-                            <InfoIcon>
-                                <TouchableOpacity onPress={() => handleAlertPrompt('cover letter', 'Add cover letter')}>
-                                    <Ionicons name='add' size={32} color={`${GlobalStyle.color.darkGrey}`} />
-                                </TouchableOpacity>
-                            </InfoIcon>
+                            </InfoIcon> : null
                         }
                     </InfoLine>
                     <InfoLine>
                         <InfoText>
                             <Title>Portfolio</Title>
-                            <Detail>{user.portfolio ? user.portfolio : 'Click icon to add'}</Detail>
+                            <Detail>{user.portfolio}</Detail>
                         </InfoText>
-                        {user.portfolio ? null :
+                        {user.portfolio ?
                             <InfoIcon>
-                                <TouchableOpacity onPress={() => handleAlertPrompt('portfolio', 'Add portfolio')}>
-                                    <Ionicons name='add' size={32} color={`${GlobalStyle.color.darkGrey}`} />
+                                <TouchableOpacity onPress={() => handleUrl(`https://${user.portfolio}`)}>
+                                    <FontAwesome5 name='file' size={32} color={`${GlobalStyle.color.darkGrey}`} />
                                 </TouchableOpacity>
-                            </InfoIcon>
+                            </InfoIcon> : null
                         }
                     </InfoLine>
+                    <EditUserWrapper onPress={handleModal}>
+                        <EditUserText>Edit profile</EditUserText>
+                    </EditUserWrapper>
                 </Content>
             </Wrapper>
         </>
