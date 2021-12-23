@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
-    signUp: (username, email, password, phoneNumber) => {
+    signUp: (username, email, password) => {
         const url = '/users/sign-up';
         return axiosClient({
             url,
@@ -10,7 +10,6 @@ const userApi = {
                 username,
                 email,
                 password,
-                phoneNumber
             }
         });
     },

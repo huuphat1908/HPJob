@@ -12,8 +12,8 @@ import { signUp } from '../../redux/slices/userSlice';
 let loginSchema = yup.object({
     username: yup.string().required().min(5),
     email: yup.string().required().email(),
-    phoneNumber: yup.string().length(10),
     password: yup.string().required().min(6).max(20),
+    passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Password and confirm password must be same')
 });
 
 const SignUpForm = () => {
@@ -27,7 +27,7 @@ const SignUpForm = () => {
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
         }}>
-            <KeyboardAwareScrollView style={{ flex: 1 }}>
+            <KeyboardAwareScrollView>
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     validationSchema={loginSchema}
@@ -48,7 +48,7 @@ const SignUpForm = () => {
                     }}
                 >
                     {({ values, handleChange, handleSubmit, handleBlur, touched, errors }) => (
-                        <Wrapper safeAreaHeight={safeAreaHeight}>
+                        <Wrapper safeAreaHeight={safeAreaHeight} onStartShouldSetResponder={() => true}>
                             <Title>HPJob</Title>
                             <InputWrapper>
                                 <Input
@@ -82,22 +82,6 @@ const SignUpForm = () => {
                             }
                             <InputWrapper>
                                 <Input
-                                    name='phoneNumber'
-                                    placeholder='Phone number...'
-                                    placeholderTextColor={'#000f5c'}
-                                    autoCompleteType='off'
-                                    keyboardType='numeric'
-                                    onChangeText={handleChange('phoneNumber')}
-                                    onBlur={handleBlur('phoneNumber')}
-                                    value={values.phoneNumber}
-                                />
-                            </InputWrapper>
-                            {(touched.phoneNumber && errors.phoneNumber) ?
-                                <ErrorText>{touched.phoneNumber && errors.phoneNumber}</ErrorText>
-                                : null
-                            }
-                            <InputWrapper>
-                                <Input
                                     name='password'
                                     placeholder='Password...'
                                     placeholderTextColor={'#000f5c'}
@@ -110,6 +94,22 @@ const SignUpForm = () => {
                             </InputWrapper>
                             {(touched.password && errors.password) ?
                                 <ErrorText>{touched.password && errors.password}</ErrorText>
+                                : null
+                            }
+                            <InputWrapper>
+                                <Input
+                                    name='passwordConfirmation'
+                                    placeholder='Confirm password...'
+                                    placeholderTextColor={'#000f5c'}
+                                    autoCompleteType='off'
+                                    secureTextEntry={true}
+                                    onChangeText={handleChange('passwordConfirmation')}
+                                    onBlur={handleBlur('passwordConfirmation')}
+                                    value={values.passwordConfirmation}
+                                />
+                            </InputWrapper>
+                            {(touched.passwordConfirmation && errors.passwordConfirmation) ?
+                                <ErrorText>{touched.passwordConfirmation && errors.passwordConfirmation}</ErrorText>
                                 : null
                             }
                             <LoginBtn onPress={handleSubmit}>

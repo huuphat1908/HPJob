@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, Linking, Alert, Modal } from 'react-native';
 import { useSelector } from 'react-redux';
-import { MaterialIcons, FontAwesome, Foundation, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, Foundation, FontAwesome5, AntDesign } from '@expo/vector-icons';
 
 import { Wrapper, Content, InfoLine, InfoIcon, InfoText, Title, Detail, EditUserWrapper, EditUserText } from './UserInfo.style';
 import GlobalStyle from '../../GlobalStyle';
@@ -26,7 +26,10 @@ const UserInfo = () => {
 
     return (
         <>
-            <Modal visible={visibleModal}>
+            <Modal visible={visibleModal} animationType='slide'>
+                <TouchableOpacity style={{ position: 'absolute', top: 10, right: 10, zIndex: 100 }}>
+                    <AntDesign name='close' size={32} color={GlobalStyle.color.white} onPress={handleModal} />
+                </TouchableOpacity>
                 <UserForm />
             </Modal>
             <Wrapper>
@@ -44,7 +47,7 @@ const UserInfo = () => {
                         </InfoText>
                         <InfoIcon>
                             <TouchableOpacity onPress={() => handleUrl(`mailto:${user.email}`)}>
-                                <MaterialIcons name='email' size={32} color={`${GlobalStyle.color.darkGrey}`} />
+                                <MaterialIcons name='email' size={32} color={`${GlobalStyle.color.white}`} />
                             </TouchableOpacity>
                         </InfoIcon>
                     </InfoLine>
@@ -55,7 +58,7 @@ const UserInfo = () => {
                         </InfoText>
                         <InfoIcon>
                             <TouchableOpacity onPress={() => handleUrl(`tel:${user.phoneNumber}`)}>
-                                <FontAwesome name='phone' size={32} color={`${GlobalStyle.color.darkGrey}`} />
+                                <FontAwesome name='phone' size={32} color={`${GlobalStyle.color.white}`} />
                             </TouchableOpacity>
                         </InfoIcon>
                     </InfoLine>
@@ -73,7 +76,7 @@ const UserInfo = () => {
                         {user.coverLetter ?
                             <InfoIcon>
                                 <TouchableOpacity onPress={() => handleUrl(`https://${user.coverLetter}`)}>
-                                    <Foundation name='clipboard-notes' size={32} color={`${GlobalStyle.color.darkGrey}`} />
+                                    <Foundation name='clipboard-notes' size={32} color={`${GlobalStyle.color.white}`} />
                                 </TouchableOpacity>
                             </InfoIcon> : null
                         }
@@ -86,7 +89,7 @@ const UserInfo = () => {
                         {user.portfolio ?
                             <InfoIcon>
                                 <TouchableOpacity onPress={() => handleUrl(`https://${user.portfolio}`)}>
-                                    <FontAwesome5 name='file' size={32} color={`${GlobalStyle.color.darkGrey}`} />
+                                    <FontAwesome5 name='file' size={32} color={`${GlobalStyle.color.white}`} />
                                 </TouchableOpacity>
                             </InfoIcon> : null
                         }

@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     username: { type: String, minLength: 6, maxLength: 20, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    phoneNumber: { type: String, length: 10, required: true },
+    phoneNumber: { type: String, length: 10 },
     jobTitle: { type: String, default: '' },
     coverLetter: { type: String, default: '' },
     portfolio: { type: String, default: '' },

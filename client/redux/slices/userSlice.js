@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import userApi from '../../api/userApi';
 
-export const signUp = createAsyncThunk('user/signUp', async ({ username, email, password, phoneNumber }) => {
-  const data = await userApi.signUp(username, email, password, phoneNumber);
+export const signUp = createAsyncThunk('user/signUp', async ({ username, email, password }) => {
+  const data = await userApi.signUp(username, email, password);
   return data;
 });
 
@@ -12,9 +12,14 @@ export const signIn = createAsyncThunk('user/signIn', async ({ email, password }
   return data;
 });
 
-export const getUserInfo = createAsyncThunk('user/getUserInfo', async() => {
+export const getUserInfo = createAsyncThunk('user/getInfo', async() => {
   const data = await userApi.getUserInfo();
   return data;
+})
+
+export const modifyUser = createAsyncThunk('user/modify', async(data,) => {
+  const modifiedUser = await userApi.modifyUser(data);
+  return modifiedUser;
 })
 
 export const userSlice = createSlice({
@@ -38,6 +43,9 @@ export const userSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(getUserInfo.fulfilled, (state, action) => {
+        state.current = {...action.payload};
+      })
+      .addCase(modifyUser.fulfilled, (state, action) => {
         state.current = {...action.payload};
       })
   }

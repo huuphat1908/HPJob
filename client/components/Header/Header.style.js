@@ -4,7 +4,7 @@ import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
     height: 70px;
-    background: ${GlobalStyle.color.darkGrey}; 
+    background: ${GlobalStyle.color.blue}; 
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -12,14 +12,14 @@ export const Wrapper = styled.View`
 `;
 
 export const Title = styled.Text`
-    color: ${GlobalStyle.color.lightGrey};
+    color: ${GlobalStyle.color.white};
     padding-left: 24px;
     font-size: ${GlobalStyle.dimen.fontMed};
     font-weight: 700;
 `;
 
 export const MenuWrapper = styled.View`
-    background: #fff;
+    background: ${GlobalStyle.color.white};
     top: 0;
     bottom: 0;
     right: 0;
@@ -29,14 +29,14 @@ export const MenuWrapper = styled.View`
 `;
 
 export const MenuItem = styled.View`
-    background: ${props => props.pathname == props.location ? '#eee' : '#fff'};
+    background: ${props => props.pathname == props.location ? '#eee' : '#fdfdfd'};
     flex-direction: row;
     padding-top: 12px;
     padding-bottom: 12px;
 `;
 
 export const MenuItemLogout = styled.View`
-    background: #fff;
+    background: ${GlobalStyle.color.white};
     flex-direction: row;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -51,5 +51,5 @@ export const MenuIcon = styled.View`
 
 export const MenuText = styled.Text`
     font-weight: 700;
-    color: ${GlobalStyle.color.darkGrey};
+    color: ${GlobalStyle.color.grey};
 `;

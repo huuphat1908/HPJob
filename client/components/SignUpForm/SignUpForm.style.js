@@ -5,14 +5,14 @@ import GlobalStyle from '../../GlobalStyle';
 export const Wrapper = styled.View`
     justify-content: center;
     align-items: center;
-    background: #003f5c;
+    background: ${GlobalStyle.color.blue};
     height: ${props => props.safeAreaHeight}px;
 `;
 
 export const Title = styled.Text`
     font-size: ${GlobalStyle.dimen.fontSuperBig};
     font-weight: bold;
-    color: #fb5b5a;
+    color: ${GlobalStyle.color.pink};
     margin-bottom: 40px;
 `;
 
@@ -28,7 +28,7 @@ export const InputWrapper = styled.View`
 
 export const Input = styled.TextInput`
     height: 50px;
-    color: #465881;
+    color: ${GlobalStyle.color.blue};
 `;
 
 export const ErrorText = styled.Text`
@@ -37,13 +37,13 @@ export const ErrorText = styled.Text`
 `;
 
 export const TextBtn = styled.Text`
-    color: white;
+    color: ${GlobalStyle.color.white};
     font-size: 16px;
 `;
 
 export const LoginBtn = styled.TouchableOpacity`
     width: 80%;
-    background-color: #fb5b5a;
+    background-color: ${GlobalStyle.color.pink};
     border-radius: 25px;
     height: 50px;
     align-items: center;

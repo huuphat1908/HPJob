@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 
 import { Wrapper, Title, MenuWrapper, MenuItem, MenuItemLogout, MenuIcon, MenuText } from './Header.style';
+import GlobalStyle from '../../GlobalStyle';
 import { logout } from '../../redux/slices/userSlice';
 
 const Header = () => {
@@ -39,7 +40,7 @@ const Header = () => {
         <>
             {isLoggedIn ?
                 <Wrapper>
-                    <FontAwesome5 name='bars' size={20} color='#e5e5e5' onPress={handleMenu} />
+                    <FontAwesome5 name='bars' size={20} color={GlobalStyle.color.white} onPress={handleMenu} />
                     <Title>{title}</Title>
                 </Wrapper> : null
             }
@@ -48,7 +49,7 @@ const Header = () => {
                     <Link to='/' onPress={handleMenu}>
                         <MenuItem pathname='/' location={location.pathname}>
                             <MenuIcon>
-                                <FontAwesome5 name='home' size={20} color='#1c1c1c' />
+                                <FontAwesome5 name='home' size={20} color={GlobalStyle.color.grey} />
                             </MenuIcon>
                             <MenuText>Home</MenuText>
                         </MenuItem>
@@ -56,7 +57,7 @@ const Header = () => {
                     <Link to='/profile' onPress={handleMenu}>
                         <MenuItem pathname='/profile' location={location.pathname}>
                             <MenuIcon>
-                                <AntDesign name='user' size={20} color='#1c1c1c' />
+                                <AntDesign name='user' size={20} color={GlobalStyle.color.grey} />
                             </MenuIcon>
                             <MenuText>Profile</MenuText>
                         </MenuItem>
@@ -64,7 +65,7 @@ const Header = () => {
                     <Link to='/login' onPress={handleLogout}>
                         <MenuItemLogout>
                             <MenuIcon>
-                                <AntDesign name='logout' size={20} color='#1c1c1c' />
+                                <AntDesign name='logout' size={20} color={GlobalStyle.color.grey} />
                             </MenuIcon>
                             <MenuText>Logout</MenuText>
                         </MenuItemLogout>

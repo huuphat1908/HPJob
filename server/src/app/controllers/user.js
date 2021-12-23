@@ -33,7 +33,7 @@ class UserController {
             const duplicateUser = await UserModel.find({ email: input.email });
             if (duplicateUser.length != 0) {
                 return res.status(409).json({
-                    error: 'This email is already registered'
+                    error: 'This email has already been registered'
                 });
             }
         } catch (error) {
@@ -65,7 +65,7 @@ class UserController {
                 return res.status(200).json({ token });
             } else {
                 return res.status(400).json({
-                    error: 'Wrong email or passwor'
+                    error: 'Wrong email or password'
                 })
             }
         } else {
@@ -78,8 +78,17 @@ class UserController {
     //PUT
     modifyUser = async (req, res) => {
         try {
-            const id = req.body._id;
+            const id = res.locals.userId;
             const userInput = req.body;
+            const listUser = await UserModel.find({});
+            const currentUser = await UserModel.findById(id);
+            for (let i = 0; i < listUser.length; i++) {
+                if (listUser[i].email === req.body.email && currentUser.email != req.body.email) {
+                    return res.status(409).json({
+                        error: 'This email has already been registered'
+                    })
+                }
+            }
             const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true });
             res.status(200).json(userModified);
         } catch (error) {
