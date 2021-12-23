@@ -3,15 +3,15 @@ import styled from 'styled-components/native';
 import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
-    justify-content: center;
-    align-items: center;
+    padding-top: 50px;
     background: ${GlobalStyle.color.blue};
+    flex: 1;
     height: ${props => props.safeAreaHeight}px;
 `;
 
 export const InputWrapper = styled.View`
     width: 80%;
-    background: white;
+    background: ${GlobalStyle.color.white};
     border-radius: 25px;
     height: 60px;
     margin-bottom: 20px;
@@ -42,5 +42,5 @@ export const LoginBtn = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 `;

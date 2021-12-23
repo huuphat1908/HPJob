@@ -56,11 +56,13 @@ const UserInfo = () => {
                             <Title>Phone number</Title>
                             <Detail>{user.phoneNumber}</Detail>
                         </InfoText>
-                        <InfoIcon>
-                            <TouchableOpacity onPress={() => handleUrl(`tel:${user.phoneNumber}`)}>
-                                <FontAwesome name='phone' size={32} color={`${GlobalStyle.color.white}`} />
-                            </TouchableOpacity>
-                        </InfoIcon>
+                        {user.phoneNumber ?
+                            <InfoIcon>
+                                <TouchableOpacity onPress={() => handleUrl(`tel:${user.phoneNumber}`)}>
+                                    <FontAwesome name='phone' size={32} color={`${GlobalStyle.color.white}`} />
+                                </TouchableOpacity>
+                            </InfoIcon> : null
+                        }
                     </InfoLine>
                     <InfoLine>
                         <InfoText>
