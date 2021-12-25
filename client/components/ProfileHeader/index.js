@@ -19,7 +19,7 @@ const ProfileHeader = () => {
                 </TouchableOpacity>
             }
             {user.avatar ?
-                <Avatar source={{ uri: user.avatar }} />
+                <Avatar source={{ uri: `http://192.168.1.7:3000${user.avatar}` }} />
                 :
                 <Avatar source={avatarNoImg} />
             }

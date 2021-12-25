@@ -75,6 +75,23 @@ class UserController {
         }
     }
 
+    setAvatar = async (req, res) => {
+        try {
+            const avatar = `/img/${req.file.filename}`;
+            const userId = res.locals.userId;
+            const currentUser = await UserModel.findById(userId).lean();
+            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, avatar });
+            return res.status(200).json({
+                name: 'OK'
+            })
+        } catch(error) {
+            console.log(error);
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
+        }
+    }
+
     //PUT
     modifyUser = async (req, res) => {
         try {
