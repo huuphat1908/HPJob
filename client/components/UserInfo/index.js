@@ -42,6 +42,12 @@ const UserInfo = () => {
                     </InfoLine>
                     <InfoLine>
                         <InfoText>
+                            <Title>Job Title</Title>
+                            <Detail>{user.jobTitle}</Detail>
+                        </InfoText>
+                    </InfoLine>
+                    <InfoLine>
+                        <InfoText>
                             <Title>Email</Title>
                             <Detail>{user.email}</Detail>
                         </InfoText>
@@ -63,12 +69,6 @@ const UserInfo = () => {
                                 </TouchableOpacity>
                             </InfoIcon> : null
                         }
-                    </InfoLine>
-                    <InfoLine>
-                        <InfoText>
-                            <Title>Job Title</Title>
-                            <Detail>{user.jobTitle}</Detail>
-                        </InfoText>
                     </InfoLine>
                     <InfoLine>
                         <InfoText>

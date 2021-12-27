@@ -2,8 +2,10 @@ import axios from 'axios';
 import queryString from 'query-string';
 import * as SecureStore from 'expo-secure-store';
 
+import { baseURLLocal } from '../configs/baseUrl';
+
 const axiosClient = axios.create({
-    baseURL: 'http://192.168.1.7:3000/api',
+    baseURL: `${baseURLLocal}/api`,
     headers: {
         'content-type': 'application/json',
     },

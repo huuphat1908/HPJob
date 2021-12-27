@@ -12,7 +12,9 @@ class UserController {
             const users = await UserModel.find({ role: 'user' });
             res.status(200).json(users);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     };
 
@@ -22,7 +24,9 @@ class UserController {
             const userFound = await UserModel.findById(id);
             res.status(200).json(userFound);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     }
 
@@ -38,7 +42,7 @@ class UserController {
             }
         } catch (error) {
             return res.status(500).json({
-                error: 'Something went wrong'
+                error: 'Internal server error'
             })
         }
         try {
@@ -47,7 +51,9 @@ class UserController {
             await newUser.save();
             return res.status(201).json(newUser);
         } catch (error) {
-            return res.status(500).send(error);
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     }
 
@@ -75,24 +81,7 @@ class UserController {
         }
     }
 
-    setAvatar = async (req, res) => {
-        try {
-            const avatar = `/img/${req.file.filename}`;
-            const userId = res.locals.userId;
-            const currentUser = await UserModel.findById(userId).lean();
-            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, avatar });
-            return res.status(200).json({
-                name: 'OK'
-            })
-        } catch(error) {
-            console.log(error);
-            return res.status(500).json({
-                error: 'Internal server error'
-            })
-        }
-    }
-
-    //PUT
+    //PATCH
     modifyUser = async (req, res) => {
         try {
             const id = res.locals.userId;
@@ -109,7 +98,41 @@ class UserController {
             const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true });
             res.status(200).json(userModified);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
+        }
+    }
+
+    setAvatar = async (req, res) => {
+        try {
+            const avatar = `/img/${req.file.filename}`;
+            const userId = res.locals.userId;
+            const currentUser = await UserModel.findById(userId).lean();
+            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, avatar });
+            return res.status(200).json({
+                success: 'Set avatar successfully'
+            })
+        } catch(error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
+        }
+    }
+
+    setBackground = async (req, res) => {
+        try {
+            const background = `/img/${req.file.filename}`;
+            const userId = res.locals.userId;
+            const currentUser = await UserModel.findById(userId).lean();
+            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, background });
+            return res.status(200).json({
+                success: 'Set background successfully'
+            })
+        } catch(error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
         }
     }
 }
