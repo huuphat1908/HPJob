@@ -1,3 +1,5 @@
+import FormData from 'form-data';
+
 import axiosClient from './axiosClient';
 
 const userApi = {
@@ -40,6 +42,46 @@ const userApi = {
             url,
             method: 'patch',
             data: user
+        })
+    },
+
+    setBackground: (backgroundUri) => {
+        const url = '/users/background';
+        const data = new FormData();
+        const backgroundUriArray = backgroundUri.split('/');
+        const filename = backgroundUriArray[backgroundUriArray.length - 1];
+        data.append('background', {
+            uri: backgroundUri,
+            type: 'image/jpeg',
+            name: `${filename}`
+        });
+        return axiosClient({
+            url,
+            method: 'patch',
+            data,
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+    },
+
+    setAvatar: (avatarUri) => {
+        const url = '/users/avatar';
+        const data = new FormData();
+        const avatarUriArray = avatarUri.split('/');
+        const filename = avatarUriArray[avatarUriArray.length - 1];
+        data.append('avatar', {
+            uri: avatarUri,
+            type: 'image/jpeg',
+            name: `${filename}`
+        });
+        return axiosClient({
+            url,
+            method: 'patch',
+            data,
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         })
     }
 };

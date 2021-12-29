@@ -29,11 +29,10 @@ const SignUpForm = () => {
                     portfolio: user.portfolio
                 }}
                 validationSchema={userSchema}
-                onSubmit={async (values, actions) => {
+                onSubmit={async (values) => {
                     try {
                         await userApi.modifyUser({ ...user, ...values });
                         dispatch(getUserInfo());
-                        actions.resetForm();
                         alert('Change info successfully');
                     } catch (error) {
                         if (error.message == 'Request failed with status code 409') {

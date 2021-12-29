@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
-    padding-top: 70px;
+    padding-top: 90px;
     background: ${GlobalStyle.color.white};
 `;
 
@@ -21,7 +21,7 @@ export const InfoLine = styled.View`
     padding: 10px 20px;
     margin-bottom: 20px;
     border-radius: 20px;
-    background: ${GlobalStyle.color.green};
+    background: ${props => props.background ? GlobalStyle.color.green : GlobalStyle.color.grey};
 `;
 
 export const InfoText = styled.View`

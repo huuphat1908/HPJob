@@ -34,19 +34,19 @@ const UserInfo = () => {
             </Modal>
             <Wrapper>
                 <Content>
-                    <InfoLine>
+                    <InfoLine background={user.username ? true : false}>
                         <InfoText>
                             <Title>Username</Title>
                             <Detail>{user.username}</Detail>
                         </InfoText>
                     </InfoLine>
-                    <InfoLine>
+                    <InfoLine background={user.jobTitle ? true : false}>
                         <InfoText>
                             <Title>Job Title</Title>
                             <Detail>{user.jobTitle}</Detail>
                         </InfoText>
                     </InfoLine>
-                    <InfoLine>
+                    <InfoLine background={user.email ? true : false}>
                         <InfoText>
                             <Title>Email</Title>
                             <Detail>{user.email}</Detail>
@@ -57,7 +57,7 @@ const UserInfo = () => {
                             </TouchableOpacity>
                         </InfoIcon>
                     </InfoLine>
-                    <InfoLine>
+                    <InfoLine background={user.phoneNumber ? true : false}>
                         <InfoText>
                             <Title>Phone number</Title>
                             <Detail>{user.phoneNumber}</Detail>
@@ -70,7 +70,7 @@ const UserInfo = () => {
                             </InfoIcon> : null
                         }
                     </InfoLine>
-                    <InfoLine>
+                    <InfoLine background={user.coverLetter ? true : false}>
                         <InfoText>
                             <Title>Cover Letter</Title>
                             <Detail>{user.coverLetter}</Detail>
@@ -83,7 +83,7 @@ const UserInfo = () => {
                             </InfoIcon> : null
                         }
                     </InfoLine>
-                    <InfoLine>
+                    <InfoLine background={user.portfolio ? true : false}>
                         <InfoText>
                             <Title>Portfolio</Title>
                             <Detail>{user.portfolio}</Detail>

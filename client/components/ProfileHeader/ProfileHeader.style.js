@@ -10,9 +10,9 @@ export const Background = styled.ImageBackground`
 `;
 
 export const Avatar = styled.Image`
-    width: 130px;
-    height: 130px;
-    border-radius: 63px;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
     border-width: 4px;
     border-color: #fff;
     margin-bottom: 10px;

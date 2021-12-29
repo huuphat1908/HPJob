@@ -26,6 +26,7 @@ userRouter.get('/me', checkAuth, userController.getUserInfo);
 userRouter.post('/sign-up', userController.createUser);
 userRouter.post('/sign-in', userController.authenticateUser);
 
+userRouter.patch('/background', checkAuth, upload.single('background'), userController.setBackground);
 userRouter.patch('/avatar', checkAuth, upload.single('avatar'), userController.setAvatar);
 userRouter.patch('/', checkAuth, userController.modifyUser);
 
