@@ -5,7 +5,7 @@ import GlobalStyle from '../../GlobalStyle';
 export const Wrapper = styled.View`
     flex: 1;
     background: ${GlobalStyle.color.blue};
-    height: ${props => props.safeAreaHeight}px;
+    height: ${GlobalStyle.safeAreaHeight}px;
 `;
 
 export const Title = styled.Text`

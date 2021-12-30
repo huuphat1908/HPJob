@@ -1,3 +1,9 @@
+import { Platform, StatusBar } from 'react-native';
+
+const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
+const windowHeight = Dimensions.get('window').height;
+const safeAreaHeight = parseInt(windowHeight) - parseInt(offSetTop);
+
 const GlobalStyle = {
     color: {
         white: '#fdfdfd',
@@ -16,7 +22,9 @@ const GlobalStyle = {
         fontBig: '24px',
         fontMed: '20px',
         fontSmall: '16px'
-    }
+    },
+    offSetTop,
+    safeAreaHeight,
 };
 
 export default GlobalStyle;

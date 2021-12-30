@@ -1,36 +1,37 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-native';
-import * as SecureStore from 'expo-secure-store';
-import { persistLogin, getUserInfo } from '../redux/slices/userSlice';
+import React, { useEffect } from "react";
+import { View, Text } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-native";
+import * as SecureStore from "expo-secure-store";
+
+import { persistLogin, getUserInfo } from "../redux/slices/userSlice";
 
 const Home = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    
-    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        checkToken = async () => {
-            const token = await SecureStore.getItemAsync('token');
-            if (token) {
-                dispatch(persistLogin(token));
-            } else {
-                navigate('/login');
-            }
-        }
-        if (!isLoggedIn) {
-            checkToken();
-        }
-        dispatch(getUserInfo());
-    }, [isLoggedIn]);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
-    return (
-        <View>
-            <Text>Home page</Text>
-        </View>
-    );
+  useEffect(() => {
+    checkToken = async () => {
+      const token = await SecureStore.getItemAsync("token");
+      if (token) {
+        dispatch(persistLogin(token));
+      } else {
+        navigate("/login");
+      }
+    };
+    if (!isLoggedIn) {
+      checkToken();
+    }
+    dispatch(getUserInfo());
+  }, [isLoggedIn]);
+
+  return (
+    <View>
+      <Text>Home page</Text>
+    </View>
+  );
 };
 
 export default Home;

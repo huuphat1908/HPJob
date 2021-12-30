@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dimensions, StatusBar, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -19,12 +18,8 @@ let loginSchema = yup.object({
 const SignUpForm = () => {
     const dispatch = useDispatch();
 
-    const windowHeight = Dimensions.get('window').height;
-    const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
-    const safeAreaHeight = parseInt(windowHeight) - parseInt(offSetTop);
-
     return (
-        <Wrapper safeAreaHeight={safeAreaHeight}>
+        <Wrapper>
             <Formik
                 initialValues={{ username: '', email: '', password: '', passwordConfirmation: '' }}
                 validationSchema={loginSchema}

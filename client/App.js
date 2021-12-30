@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { NativeRouter, Routes, Route } from 'react-router-native';
 import AppLoading from 'expo-app-loading';
 
@@ -12,10 +12,10 @@ import Login from './screens/Login';
 import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
+import GlobalStyle from './GlobalStyle';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 
   useEffect(() => {
     setCustomFont();
@@ -24,7 +24,7 @@ export default function App() {
   if (fontsLoaded) {
     return (
       <NativeRouter>
-        <SafeAreaView style={{ flex: 1, paddingTop: offSetTop }}>
+        <SafeAreaView style={{ flex: 1, paddingTop: GlobalStyle.offSetTop }}>
           <Header />
           <Routes>
             <Route exact path='/' element={<Home />} />
