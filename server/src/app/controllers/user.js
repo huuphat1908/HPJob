@@ -20,9 +20,7 @@ class UserController {
 
     getUserInfo = async (req, res) => {
         try {
-            const id = res.locals.userId;
-            const userFound = await UserModel.findById(id);
-            res.status(200).json(userFound);
+            res.status(200).json(res.locals.currentUser);
         } catch (error) {
             res.status(500).json({
                 error: 'Internal server error'
@@ -84,10 +82,10 @@ class UserController {
     //PATCH
     modifyUser = async (req, res) => {
         try {
-            const id = res.locals.userId;
+            const userId = res.locals.currentUser._id;
             const userInput = req.body;
             const listUser = await UserModel.find({});
-            const currentUser = await UserModel.findById(id);
+            const currentUser = res.locals.currentUser;
             for (let i = 0; i < listUser.length; i++) {
                 if (listUser[i].email === req.body.email && currentUser.email != req.body.email) {
                     return res.status(409).json({
@@ -95,7 +93,7 @@ class UserController {
                     })
                 }
             }
-            const userModified = await UserModel.findOneAndUpdate({ _id: id }, { ...userInput }, { new: true });
+            const userModified = await UserModel.findOneAndUpdate({ _id: userId }, { ...userInput }, { new: true });
             res.status(200).json(userModified);
         } catch (error) {
             res.status(500).json({
@@ -107,8 +105,8 @@ class UserController {
     setBackground = async (req, res) => {
         try {
             const background = `/img/${req.file.filename}`;
-            const userId = res.locals.userId;
-            const currentUser = await UserModel.findById(userId).lean();
+            const userId = res.locals.currentUser._id;
+            const currentUser = res.locals.currentUser;
             await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, background });
             return res.status(200).json({
                 success: 'Set background successfully'
@@ -124,8 +122,8 @@ class UserController {
         console.log(req.file);
         try {
             const avatar = `/img/${req.file.filename}`;
-            const userId = res.locals.userId;
-            const currentUser = await UserModel.findById(userId).lean();
+            const userId = res.locals.currentUser._id;
+            const currentUser = res.locals.currentUser;
             await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, avatar });
             return res.status(200).json({
                 success: 'Set avatar successfully'
