@@ -1,9 +1,4 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
 import { JobTitleModel } from '../models/index.js';
-
-const saltRounds = 7;
 
 class JobTitleController {
     //GET
@@ -12,7 +7,9 @@ class JobTitleController {
             const jobTitles = await JobTitleModel.find({});
             res.status(200).json(jobTitles);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     };
 
@@ -24,7 +21,9 @@ class JobTitleController {
             await newJobTitle.save();
             res.status(201).json(newJobTitle);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     }
 
@@ -36,7 +35,9 @@ class JobTitleController {
             const jobModified = await JobTitleModel.findOneAndUpdate({ _id: id }, { ...jobTitleInput }, { new: true });
             res.status(200).json(jobModified);
         } catch (error) {
-            res.status(400).send(error);
+            res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     }
 }

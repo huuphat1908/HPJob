@@ -2,6 +2,9 @@
 import express from 'express';
 import multer from 'multer';
 
+import { userController } from '../app/controllers/index.js';
+import { checkAuth } from '../app/middlewares/auth.js';
+
 const userRouter = express.Router();
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -13,12 +16,6 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });  
-
-//controller
-import { userController } from '../app/controllers/index.js';
-
-//authMiddleware
-import { checkAuth } from '../app/middlewares/auth.js';
 
 userRouter.get('/', checkAuth, userController.getAllUser);
 userRouter.get('/me', checkAuth, userController.getUserInfo);

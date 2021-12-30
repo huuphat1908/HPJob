@@ -10,9 +10,9 @@ class UserController {
     getAllUser = async (req, res) => {
         try {
             const users = await UserModel.find({ role: 'user' });
-            res.status(200).json(users);
+            return res.status(200).json(users);
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 error: 'Internal server error'
             });
         }
@@ -20,9 +20,9 @@ class UserController {
 
     getUserInfo = async (req, res) => {
         try {
-            res.status(200).json(res.locals.currentUser);
+            return res.status(200).json(res.locals.currentUser);
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 error: 'Internal server error'
             });
         }
@@ -57,25 +57,31 @@ class UserController {
 
     authenticateUser = async (req, res) => {
         const input = req.body;
-        const user = await UserModel.findOne({ email: input.email });
-        if (user) {
-            const isValidPassword = await bcrypt.compare(input.password, user.password);
-            if (isValidPassword) {
-                const token = jwt.sign({
-                    userId: user.id
-                },
-                    process.env.ACCESS_TOKEN_KEY
-                );
-                return res.status(200).json({ token });
+        try {
+            const user = await UserModel.findOne({ email: input.email });
+            if (user) {
+                const isValidPassword = await bcrypt.compare(input.password, user.password);
+                if (isValidPassword) {
+                    const token = jwt.sign({
+                        userId: user.id
+                    },
+                        process.env.ACCESS_TOKEN_KEY
+                    );
+                    return res.status(200).json({ token });
+                } else {
+                    return res.status(400).json({
+                        error: 'Wrong email or password'
+                    })
+                }
             } else {
                 return res.status(400).json({
                     error: 'Wrong email or password'
-                })
+                });
             }
-        } else {
-            return res.status(400).json({
-                error: 'Wrong email or password'
-            });
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
         }
     }
 
@@ -94,9 +100,9 @@ class UserController {
                 }
             }
             const userModified = await UserModel.findOneAndUpdate({ _id: userId }, { ...userInput }, { new: true });
-            res.status(200).json(userModified);
+            return res.status(200).json(userModified);
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
                 error: 'Internal server error'
             });
         }
@@ -111,7 +117,7 @@ class UserController {
             return res.status(200).json({
                 success: 'Set background successfully'
             })
-        } catch(error) {
+        } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'
             })
@@ -119,7 +125,6 @@ class UserController {
     }
 
     setAvatar = async (req, res) => {
-        console.log(req.file);
         try {
             const avatar = `/img/${req.file.filename}`;
             const userId = res.locals.currentUser._id;
@@ -128,7 +133,7 @@ class UserController {
             return res.status(200).json({
                 success: 'Set avatar successfully'
             })
-        } catch(error) {
+        } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'
             })

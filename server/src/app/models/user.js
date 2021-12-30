@@ -1,4 +1,4 @@
-import  mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     portfolio: { type: String, default: '' },
     avatar: { type: String, default: '' },
     background: { type: String, default: '' },
-    applyToJob: [{
+    jobApplied: [{
         jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
     }],
     jobPosted: [{

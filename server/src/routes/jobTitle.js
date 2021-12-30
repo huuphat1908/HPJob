@@ -1,11 +1,8 @@
-//dependency
 import express from 'express';
-const jobTitleRouter = express.Router();
-
-//controller
 import { jobTitleController } from '../app/controllers/index.js';
 
-//authMiddleware
+const jobTitleRouter = express.Router();
+
 import { checkAuth } from '../app/middlewares/auth.js';
 
 jobTitleRouter.get('/', checkAuth, jobTitleController.getAllJobTitle);
