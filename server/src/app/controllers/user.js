@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import randomstring from 'randomstring';
 
 import { UserModel } from '../models/index.js';
 
@@ -78,6 +80,45 @@ class UserController {
                     error: 'Wrong email or password'
                 });
             }
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
+        }
+    }
+
+    resetPassword = async (req, res) => {
+        const receiverEmail = req.body.email;
+        const senderEmail = 'huuphatauto1908@gmail.com';
+        const newPassword = randomstring.generate(7);
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: senderEmail,
+                pass: process.env.GMAIL_PASSWORD,
+            },
+        });
+
+        const mailOptions = {
+            from: senderEmail,
+            to: receiverEmail,
+            subject: 'HPJob - Reset password',
+            text: `Your new password is ${newPassword}`
+        };
+
+        try {
+            await transporter.sendMail(mailOptions);
+            const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
+            const receiverUser = await UserModel.findOne({ email: receiverEmail }).lean();
+            if (!receiverUser) {
+                return res.status(400).json({
+                    error: 'This email has been not registered'
+                })
+            }
+            await UserModel.findOneAndUpdate({ _id: receiverUser._id }, { ...receiverUser, password: newHashedPassword });
+            return res.status(200).json({
+                success: 'Reset password successfully'
+            })
         } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'

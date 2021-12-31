@@ -28,6 +28,17 @@ const userApi = {
         });
     },
 
+    resetPassword: (email) => {
+        const url = '/users/reset-password';
+        return axiosClient({
+            url,
+            method: 'post',
+            data: {
+                email
+            }
+        })
+    },
+
     getUserInfo: () => {
         const url = '/users/me';
         return axiosClient({

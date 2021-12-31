@@ -1,4 +1,4 @@
-import { Platform, StatusBar } from 'react-native';
+import { Platform, StatusBar, Dimensions } from 'react-native';
 
 const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 const windowHeight = Dimensions.get('window').height;

@@ -1,9 +1,9 @@
 import express from 'express';
+
 import { jobTitleController } from '../app/controllers/index.js';
+import { checkAuth } from '../app/middlewares/auth.js';
 
 const jobTitleRouter = express.Router();
-
-import { checkAuth } from '../app/middlewares/auth.js';
 
 jobTitleRouter.get('/', checkAuth, jobTitleController.getAllJobTitle);
 
