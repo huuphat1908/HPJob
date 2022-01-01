@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-native';
 
 import { Wrapper, Title, InputWrapper, Input, ErrorText, ForgotPassword, LoginBtn, TextBtn } from './LoginForm.style';
 import { signIn } from '../../redux/slices/userSlice';
+import userApi from '../../api/userApi';
 import Modal from '../Modal';
 
 let loginSchema = yup.object({
@@ -22,9 +23,23 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     const [visibleForgotPassword, setVisibleForgotPassword] = useState(false);
+    const [emailForgotten, setEmailForgotten] = useState('');
 
     const handleForgotPassword = () => {
         setVisibleForgotPassword(!visibleForgotPassword);
+    }
+
+    const handleEmailForgotten = async () => {
+        try {
+            const data = await userApi.resetPassword({ email: emailForgotten });
+            Alert.alert(data.success);
+        } catch(error) {
+            if(error.response.status == 400) {
+                Alert.alert(error.response.data.error);
+            } else {
+                Alert.alert('Something went wrong');
+            }
+        }
     }
 
     return (
@@ -33,8 +48,10 @@ const LoginForm = () => {
                 visible={visibleForgotPassword}
                 title='Forgot password'
                 content='Enter your email'
-                toggleModal={handleForgotPassword}
-                callback={() => console.log('Arsenal')}
+                handleModal={handleForgotPassword}
+                textInput={emailForgotten}
+                handleInput={text => setEmailForgotten(text)}
+                callback={handleEmailForgotten}
             />
             <Wrapper>
                 <Formik

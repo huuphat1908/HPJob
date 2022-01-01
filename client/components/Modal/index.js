@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     modal: {
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: 150,
-        marginBottom: 150,
+        marginTop: 'auto',
+        marginBottom: 'auto',
         padding: 20,
         flex: 1,
         justifyContent: 'center',
@@ -17,27 +17,34 @@ const styles = StyleSheet.create({
         backgroundColor: '#fdfdfd',
         borderRadius: 7,
         width: '80%',
+        height: 40,
+        maxHeight: 300,
     }
 });
 
-const Modal = ({ visible, toggleModal, title, content, callback }) => {
+const Modal = ({ visible, handleModal, textInput, handleInput, title, content, callback }) => {
+
     return (
         <ModalLib
             style={styles.modal}
             isVisible={visible}
-            onBackdropPress={toggleModal}
+            onBackdropPress={handleModal}
+            propagateSwipe
         >
             <Title>{title}</Title>
             <Content>{content}</Content>
             <InputWrapper>
-                <Input />
+                <Input
+                    onChangeText={text => handleInput(text)}
+                    value={textInput}
+                />
             </InputWrapper>
             <ContainerButton>
-                <CancelButton onPress={toggleModal}>
+                <CancelButton onPress={handleModal}>
                     <TextButton>Cancel</TextButton>
                 </CancelButton>
                 <AcceptButton onPress={callback}>
-                    <TextButton>OK</TextButton>
+                    <TextButton>Confirm</TextButton>
                 </AcceptButton>
             </ContainerButton>
         </ModalLib>

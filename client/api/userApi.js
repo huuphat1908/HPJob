@@ -28,7 +28,7 @@ const userApi = {
         });
     },
 
-    resetPassword: (email) => {
+    resetPassword: ({ email }) => {
         const url = '/users/reset-password';
         return axiosClient({
             url,

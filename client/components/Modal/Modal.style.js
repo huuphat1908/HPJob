@@ -13,7 +13,7 @@ export const Content = styled.Text`
 
 export const InputWrapper = styled.View`
     width: 100%;
-    background: ${GlobalStyle.color.blue};
+    background: ${GlobalStyle.color.green};
     border-radius: 12px;
     height: 30px;
     margin-bottom: 35px;
