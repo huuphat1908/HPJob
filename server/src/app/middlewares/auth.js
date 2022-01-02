@@ -16,19 +16,20 @@ export const checkAuth = async (req, res, next) => {
                 error: 'Unauthorized'
             })
         }
-    } catch(err) {
+    } catch (err) {
         return res.status(401).json({
             error: 'Unauthorized'
         });
     }
-    
+
 }
 
 export const checkAdmin = (req, res, next) => {
-    if (res.locals.token.role == 'admin') {
+    if (res.locals.currentUser.role == 'admin') {
         next();
+    } else {
+        return res.json(403).json({
+            error: `Don't have permission to access api`
+        });
     }
-    return res.json(403).json({
-        error: 'Dont have permission to access api'
-    });
 }

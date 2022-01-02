@@ -37,3 +37,11 @@ export const MenuText = styled.Text`
     font-weight: 700;
     color: ${GlobalStyle.color.grey};
 `;
+
+export const Line = styled.View`
+    width: 100%;
+    height: 0;
+    border: 1px solid ${GlobalStyle.color.grey};
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;

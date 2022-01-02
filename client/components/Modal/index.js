@@ -46,7 +46,10 @@ const Modal = ({ visible, handleModal, textInput, handleInput, title, content, p
                 <CancelButton onPress={handleModal}>
                     <TextButton>Cancel</TextButton>
                 </CancelButton>
-                <AcceptButton onPress={callback}>
+                <AcceptButton onPress={() => {
+                    handleModal();
+                    callback();
+                }}>
                     <TextButton>Confirm</TextButton>
                 </AcceptButton>
             </ContainerButton>

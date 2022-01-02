@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-native";
 import * as SecureStore from "expo-secure-store";
 
 import { persistLogin, getUserInfo } from "../redux/slices/userSlice";
+import { getAllJobTitle } from "../redux/slices/jobTitleSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Home = () => {
       checkToken();
     }
     dispatch(getUserInfo());
+    dispatch(getAllJobTitle());
   }, [isLoggedIn]);
 
   return (

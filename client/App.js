@@ -14,6 +14,8 @@ import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 import ChangePassword from './screens/ChangePassword';
+import JobTitle from './screens/JobTitle';
+import City from './screens/City';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -33,6 +35,9 @@ export default function App() {
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/change-password' element={<ChangePassword />} />
+            
+            <Route path='/admin/job-title' element={<JobTitle />} />
+            <Route path='/admin/city' element={<City />} />
           </Routes>
         </SafeAreaView>
       </NativeRouter >

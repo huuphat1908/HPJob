@@ -1,4 +1,5 @@
 import { Platform, StatusBar, Dimensions } from 'react-native';
+import styled from 'styled-components/native';
 
 const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 const windowHeight = Dimensions.get('window').height;
@@ -26,5 +27,23 @@ const GlobalStyle = {
     offSetTop,
     safeAreaHeight,
 };
+
+export const PrimaryButton = styled.TouchableOpacity`
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: ${GlobalStyle.color.pink};
+    border-radius: 25px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+`;
+
+export const PrimaryTextButton = styled.Text`
+    color: ${GlobalStyle.color.white};
+    font-size: 16px;
+`;
 
 export default GlobalStyle;

@@ -1,14 +1,16 @@
 import express from 'express';
 
 import { jobTitleController } from '../app/controllers/index.js';
-import { checkAuth } from '../app/middlewares/auth.js';
+import { checkAdmin } from '../app/middlewares/auth.js';
 
 const jobTitleRouter = express.Router();
 
-jobTitleRouter.get('/', checkAuth, jobTitleController.getAllJobTitle);
+jobTitleRouter.get('/', jobTitleController.getAllJobTitle);
 
-jobTitleRouter.post('/', jobTitleController.createJobTitle);
+jobTitleRouter.post('/', checkAdmin, jobTitleController.createJobTitle);
 
-jobTitleRouter.patch('/:id', checkAuth, jobTitleController.modifyJobTitle);
+jobTitleRouter.patch('/:id', checkAdmin, jobTitleController.modifyJobTitle);
+
+jobTitleRouter.delete('/:id', checkAdmin, jobTitleController.deleteJobTitle);
 
 export default jobTitleRouter;

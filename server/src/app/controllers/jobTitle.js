@@ -32,10 +32,23 @@ class JobTitleController {
         try {
             const id = req.params.id;
             const jobTitleInput = req.body;
-            const jobModified = await JobTitleModel.findOneAndUpdate({ _id: id }, { ...jobTitleInput }, { new: true });
-            res.status(200).json(jobModified);
+            const jobTitleModified = await JobTitleModel.findOneAndUpdate({ _id: id }, { ...jobTitleInput }, { new: true });
+            return res.status(200).json(jobTitleModified);
         } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
+        }
+    }
+
+    //DELETE
+    deleteJobTitle = async (req, res) => {
+        try {
+            const id = req.params.id;
+            const jobTitleDeleted = await JobTitleModel.deleteOne({ _id: id });
+            return res.status(200).json(jobTitleDeleted);
+        } catch (error) {
+            return res.status(500).json({
                 error: 'Internal server error'
             });
         }

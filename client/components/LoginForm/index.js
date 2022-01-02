@@ -54,7 +54,6 @@ const LoginForm = () => {
                     initialValues={{ email: '', password: '' }}
                     validationSchema={loginSchema}
                     onSubmit={async (values) => {
-                        console.log('Arsenal');
                         try {
                             const data = await dispatch(signIn(values)).unwrap();
                             await SecureStore.setItemAsync('token', data.token);

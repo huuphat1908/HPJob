@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { Link, useLocation } from 'react-router-native';
-import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { MenuWrapper, MenuItem, MenuItemLogout, MenuIcon, MenuText } from './Menu.style';
+import { MenuWrapper, MenuItem, MenuItemLogout, MenuIcon, MenuText, Line } from './Menu.style';
 import GlobalStyle from '../../GlobalStyle';
 import { logout } from '../../redux/slices/userSlice';
 
@@ -23,6 +23,8 @@ const Menu = ({ visible, handleVisible }) => {
     const location = useLocation();
     const dispatch = useDispatch();
 
+    const currentUser = useSelector(state => state.user.current);
+
     const handleLogout = async () => {
         await SecureStore.deleteItemAsync('token');
         dispatch(logout());
@@ -36,6 +38,10 @@ const Menu = ({ visible, handleVisible }) => {
             onBackdropPress={handleVisible}
             animationIn='slideInLeft'
             animationOut='slideOutLeft'
+            animationInTiming={400}
+            animationOutTiming={400}
+            backdropTransitionInTiming={400}
+            backdropTransitionOutTiming={400}
         >
             <MenuWrapper>
                 <Link to='/' onPress={handleVisible}>
@@ -73,6 +79,27 @@ const Menu = ({ visible, handleVisible }) => {
                         <MenuText>Logout</MenuText>
                     </MenuItemLogout>
                 </Link>
+                {currentUser.role == 'admin' ?
+                    <>
+                        <Line />
+                        <Link to='/admin/job-title' onPress={handleVisible}>
+                            <MenuItem pathname='/job-title' location={location.pathname}>
+                                <MenuIcon>
+                                    <MaterialIcons name='title' size={20} color={GlobalStyle.color.grey} />
+                                </MenuIcon>
+                                <MenuText>Job Title</MenuText>
+                            </MenuItem>
+                        </Link>
+                        <Link to='/admin/city' onPress={handleVisible}>
+                            <MenuItem pathname='/city' location={location.pathname}>
+                                <MenuIcon>
+                                    <MaterialIcons name='location-city' size={20} color={GlobalStyle.color.grey} />
+                                </MenuIcon>
+                                <MenuText>City</MenuText>
+                            </MenuItem>
+                        </Link>
+                    </> : null
+                }
             </MenuWrapper>
         </Modal>
     )

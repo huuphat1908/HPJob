@@ -29,6 +29,12 @@ const Header = () => {
             case '/change-password':
                 setTitle('Change password');
                 break;
+            case '/admin/job-title':
+                setTitle('Job Title');
+                break;
+            case '/admin/city':
+                setTitle('City');
+                break;
         }
     }, [location]);
 
