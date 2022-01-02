@@ -1,19 +1,12 @@
 import React from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
-import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-native';
 
 import { Wrapper, Title, InputWrapper, Input, ErrorText, LoginBtn, TextBtn } from './SignUpForm.style';
 import { signUp } from '../../redux/slices/userSlice';
-
-let loginSchema = yup.object({
-    username: yup.string().required().min(5),
-    email: yup.string().required().email(),
-    password: yup.string().required().min(6).max(20),
-    passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Password and confirm password must be same')
-});
+import { signUpSchema } from '../../configs/user';
 
 const SignUpForm = () => {
     const dispatch = useDispatch();
@@ -22,7 +15,7 @@ const SignUpForm = () => {
         <Wrapper>
             <Formik
                 initialValues={{ username: '', email: '', password: '', passwordConfirmation: '' }}
-                validationSchema={loginSchema}
+                validationSchema={signUpSchema}
                 onSubmit={async (values, actions) => {
                     try {
                         await dispatch(signUp(values)).unwrap();

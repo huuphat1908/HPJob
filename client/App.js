@@ -6,13 +6,14 @@ import AppLoading from 'expo-app-loading';
 import { getFonts, setCustomFont } from './configs/fonts';
 
 import Header from './components/Header';
+import GlobalStyle from './GlobalStyle';
 
 // screens
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
-import GlobalStyle from './GlobalStyle';
+import ChangePassword from './screens/ChangePassword';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -31,6 +32,7 @@ export default function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/change-password' element={<ChangePassword />} />
           </Routes>
         </SafeAreaView>
       </NativeRouter >

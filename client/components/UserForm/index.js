@@ -1,11 +1,10 @@
 import React from 'react';
-import { Dimensions, StatusBar, Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Wrapper, InputWrapper, Input, ErrorText, LoginBtn, TextBtn } from './UserForm.style';
-import userSchema from '../../configs/user';
+import { userSchema } from '../../configs/user';
 import userApi from '../../api/userApi';
 import { getUserInfo } from '../../redux/slices/userSlice';
 
@@ -13,12 +12,8 @@ const SignUpForm = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.current);
 
-    const windowHeight = Dimensions.get('window').height;
-    const offSetTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
-    const safeAreaHeight = parseInt(windowHeight) - parseInt(offSetTop);
-
     return (
-        <Wrapper safeAreaHeight={safeAreaHeight}>
+        <Wrapper>
             <Formik
                 initialValues={{
                     username: user.username,

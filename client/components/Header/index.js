@@ -26,6 +26,9 @@ const Header = () => {
             case '/profile':
                 setTitle('Profile');
                 break;
+            case '/change-password':
+                setTitle('Change password');
+                break;
         }
     }, [location]);
 

@@ -22,10 +22,11 @@ userRouter.get('/me', checkAuth, userController.getUserInfo);
 
 userRouter.post('/sign-up', userController.createUser);
 userRouter.post('/sign-in', userController.authenticateUser);
-userRouter.post('/reset-password', userController.resetPassword);
 
 userRouter.patch('/background', checkAuth, upload.single('background'), userController.setBackground);
 userRouter.patch('/avatar', checkAuth, upload.single('avatar'), userController.setAvatar);
+userRouter.patch('/reset-password', userController.resetPassword);
+userRouter.patch('/change-password', checkAuth, userController.changePassword);
 userRouter.patch('/', checkAuth, userController.modifyUser);
 
 export default userRouter;

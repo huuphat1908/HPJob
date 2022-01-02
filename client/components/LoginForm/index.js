@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Alert, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
-import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import { Link } from 'react-router-native';
@@ -12,11 +11,7 @@ import { Wrapper, Title, InputWrapper, Input, ErrorText, ForgotPassword, LoginBt
 import { signIn } from '../../redux/slices/userSlice';
 import userApi from '../../api/userApi';
 import Modal from '../Modal';
-
-let loginSchema = yup.object({
-    email: yup.string().required().email(),
-    password: yup.string().required().min(6).max(20)
-});
+import { loginSchema } from '../../configs/user';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -48,6 +43,7 @@ const LoginForm = () => {
                 visible={visibleForgotPassword}
                 title='Forgot password'
                 content='Enter your email'
+                placeholder='Email...'
                 handleModal={handleForgotPassword}
                 textInput={emailForgotten}
                 handleInput={text => setEmailForgotten(text)}
@@ -58,6 +54,7 @@ const LoginForm = () => {
                     initialValues={{ email: '', password: '' }}
                     validationSchema={loginSchema}
                     onSubmit={async (values) => {
+                        console.log('Arsenal');
                         try {
                             const data = await dispatch(signIn(values)).unwrap();
                             await SecureStore.setItemAsync('token', data.token);

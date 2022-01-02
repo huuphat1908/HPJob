@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { Link, useLocation } from 'react-router-native';
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 
@@ -52,6 +52,14 @@ const Menu = ({ visible, handleVisible }) => {
                             <AntDesign name='user' size={20} color={GlobalStyle.color.grey} />
                         </MenuIcon>
                         <MenuText>Profile</MenuText>
+                    </MenuItem>
+                </Link>
+                <Link to='/change-password' onPress={handleVisible}>
+                    <MenuItem pathname='/change-password' location={location.pathname}>
+                        <MenuIcon>
+                            <MaterialCommunityIcons name='lock-reset' size={20} color={GlobalStyle.color.grey} />
+                        </MenuIcon>
+                        <MenuText>Change password</MenuText>
                     </MenuItem>
                 </Link>
                 <Link to='/login' onPress={() => {

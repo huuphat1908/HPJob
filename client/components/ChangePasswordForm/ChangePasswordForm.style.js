@@ -3,15 +3,14 @@ import styled from 'styled-components/native';
 import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
-    padding-top: 50px;
-    background: ${GlobalStyle.color.blue};
+    background: ${GlobalStyle.color.white};
     flex: 1;
     height: ${GlobalStyle.safeAreaHeight}px;
 `;
 
 export const InputWrapper = styled.View`
     width: 80%;
-    background: ${GlobalStyle.color.white};
+    background: ${GlobalStyle.color.green};
     border-radius: 25px;
     height: 60px;
     margin-bottom: 20px;
@@ -21,7 +20,7 @@ export const InputWrapper = styled.View`
 
 export const Input = styled.TextInput`
     height: 50px;
-    color: ${GlobalStyle.color.blue};
+    color: ${GlobalStyle.color.white};
 `;
 
 export const ErrorText = styled.Text`
@@ -34,7 +33,7 @@ export const TextBtn = styled.Text`
     font-size: 16px;
 `;
 
-export const LoginBtn = styled.TouchableOpacity`
+export const ConfirmButton = styled.TouchableOpacity`
     width: 80%;
     background-color: ${GlobalStyle.color.pink};
     border-radius: 25px;
@@ -44,3 +43,4 @@ export const LoginBtn = styled.TouchableOpacity`
     margin-top: 10px;
     margin-bottom: 20px;
 `;
+

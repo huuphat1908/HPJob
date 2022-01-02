@@ -87,45 +87,6 @@ class UserController {
         }
     }
 
-    resetPassword = async (req, res) => {
-        const receiverEmail = req.body.email;
-        const senderEmail = 'huuphatauto1908@gmail.com';
-        const newPassword = randomstring.generate(7);
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: senderEmail,
-                pass: process.env.GMAIL_PASSWORD,
-            },
-        });
-
-        const mailOptions = {
-            from: senderEmail,
-            to: receiverEmail,
-            subject: 'HPJob - Reset password',
-            text: `Your new password is ${newPassword}`
-        };
-
-        try {
-            await transporter.sendMail(mailOptions);
-            const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
-            const receiverUser = await UserModel.findOne({ email: receiverEmail }).lean();
-            if (!receiverUser) {
-                return res.status(400).json({
-                    error: 'This email has been not registered'
-                })
-            }
-            await UserModel.findOneAndUpdate({ _id: receiverUser._id }, { ...receiverUser, password: newHashedPassword });
-            return res.status(200).json({
-                success: 'Reset password successfully'
-            })
-        } catch (error) {
-            return res.status(500).json({
-                error: 'Internal server error'
-            })
-        }
-    }
-
     //PATCH
     modifyUser = async (req, res) => {
         try {
@@ -174,6 +135,69 @@ class UserController {
             return res.status(200).json({
                 success: 'Set avatar successfully'
             })
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
+        }
+    }
+
+    resetPassword = async (req, res) => {
+        const receiverEmail = req.body.email;
+        const senderEmail = 'huuphatauto1908@gmail.com';
+        const newPassword = randomstring.generate(7);
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: senderEmail,
+                pass: process.env.GMAIL_PASSWORD,
+            },
+        });
+
+        const mailOptions = {
+            from: senderEmail,
+            to: receiverEmail,
+            subject: 'HPJob - Reset password',
+            text: `Your new password is ${newPassword}`
+        };
+
+        try {
+            await transporter.sendMail(mailOptions);
+            const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
+            const receiverUser = await UserModel.findOne({ email: receiverEmail }).lean();
+            if (!receiverUser) {
+                return res.status(400).json({
+                    error: 'This email has been not registered'
+                })
+            }
+            await UserModel.findOneAndUpdate({ _id: receiverUser._id }, { ...receiverUser, password: newHashedPassword });
+            return res.status(200).json({
+                success: 'Reset password successfully'
+            })
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
+        }
+    }
+
+    changePassword = async (req, res) => {
+        const input = req.body;
+        const currentUser = res.locals.currentUser;
+        try {
+            const isValidPassword = await bcrypt.compare(input.oldPassword, currentUser.password);
+            if (isValidPassword) {
+                const newHashedPassword = await bcrypt.hash(input.newPassword, saltRounds);
+                console.log({ ...currentUser, password: newHashedPassword });
+                await UserModel.findOneAndUpdate({ _id: currentUser._id }, { ...currentUser, password: newHashedPassword });
+                return res.status(200).json({
+                    success: 'Change password successfully'
+                })
+            } else {
+                return res.status(400).json({
+                    error: 'Wrong password'
+                })
+            }
         } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'

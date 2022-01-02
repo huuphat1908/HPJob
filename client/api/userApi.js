@@ -32,11 +32,24 @@ const userApi = {
         const url = '/users/reset-password';
         return axiosClient({
             url,
-            method: 'post',
+            method: 'patch',
             data: {
                 email
             }
-        })
+        });
+    },
+
+    changePassword: ({ oldPassword, newPassword, passwordConfirmation }) => {
+        const url = '/users/change-password';
+        return axiosClient({
+            url,
+            method: 'patch',
+            data: {
+                oldPassword,
+                newPassword,
+                passwordConfirmation
+            }
+        });
     },
 
     getUserInfo: () => {
@@ -44,7 +57,7 @@ const userApi = {
         return axiosClient({
             url,
             method: 'get'
-        })
+        });
     },
 
     modifyUser: (user) => {
@@ -53,7 +66,7 @@ const userApi = {
             url,
             method: 'patch',
             data: user
-        })
+        });
     },
 
     setBackground: (backgroundUri) => {
@@ -73,7 +86,7 @@ const userApi = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        })
+        });
     },
 
     setAvatar: (avatarUri) => {
@@ -93,7 +106,7 @@ const userApi = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        })
+        });
     }
 };
 

@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import ModalLib from 'react-native-modal';
 
 import { Title, Content, InputWrapper, Input, ContainerButton, CancelButton, AcceptButton, TextButton } from './Modal.style';
+import GlobalStyle from '../../GlobalStyle';
 
 const styles = StyleSheet.create({
     modal: {
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         width: '80%',
         height: 40,
-        maxHeight: 300,
+        maxHeight: 280,
     }
 });
 
-const Modal = ({ visible, handleModal, textInput, handleInput, title, content, callback }) => {
+const Modal = ({ visible, handleModal, textInput, handleInput, title, content, placeholder, callback }) => {
 
     return (
         <ModalLib
@@ -37,6 +38,8 @@ const Modal = ({ visible, handleModal, textInput, handleInput, title, content, c
                 <Input
                     onChangeText={text => handleInput(text)}
                     value={textInput}
+                    placeholder={placeholder}
+                    placeholderTextColor={GlobalStyle.color.white}
                 />
             </InputWrapper>
             <ContainerButton>
