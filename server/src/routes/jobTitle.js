@@ -9,7 +9,7 @@ jobTitleRouter.get('/', jobTitleController.getAllJobTitle);
 
 jobTitleRouter.post('/', checkAdmin, jobTitleController.createJobTitle);
 
-jobTitleRouter.patch('/:id', checkAdmin, jobTitleController.modifyJobTitle);
+jobTitleRouter.put('/:id', checkAdmin, jobTitleController.modifyJobTitle);
 
 jobTitleRouter.delete('/:id', checkAdmin, jobTitleController.deleteJobTitle);
 

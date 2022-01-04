@@ -13,7 +13,7 @@ export const Content = styled.View`
     padding: 10px;
 `;
 
-export const InfoLine = styled.View`
+export const InfoLine = styled.TouchableOpacity`
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;

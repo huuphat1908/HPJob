@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { ToastAndroid } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 
@@ -21,12 +21,12 @@ const ChangePasswordForm = () => {
                 onSubmit={async (values) => {
                     try {
                         const data = await userApi.changePassword(values);
-                        Alert.alert(data.success);
+                        ToastAndroid.show(data.success, ToastAndroid.BOTTOM);
                     } catch(error) {
                         if (error.response.status == 400) {
-                            Alert.alert(error.response.data.error);
+                            alert(error.response.data.error);
                         } else {
-                            Alert.alert('Something went wrong');
+                            alert('Something went wrong');
                         }
                     }
                 }}

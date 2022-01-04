@@ -1,4 +1,5 @@
 import React from 'react';
+import { ToastAndroid } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
@@ -20,7 +21,7 @@ const SignUpForm = () => {
                     try {
                         await dispatch(signUp(values)).unwrap();
                         actions.resetForm();
-                        alert('Sign up successfully');
+                        ToastAndroid.show('Sign up successfully', ToastAndroid.BOTTOM);
                     } catch (error) {
                         if (error.message == 'Request failed with status code 409') {
                             alert('This email is already registered');

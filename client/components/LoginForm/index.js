@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, TouchableOpacity } from 'react-native';
+import { ToastAndroid, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
@@ -27,12 +27,12 @@ const LoginForm = () => {
     const handleEmailForgotten = async () => {
         try {
             const data = await userApi.resetPassword({ email: emailForgotten });
-            Alert.alert(data.success);
+            ToastAndroid.show(data.success, ToastAndroid.BOTTOM);
         } catch(error) {
             if(error.response.status == 400) {
-                Alert.alert(error.response.data.error);
+                alert(error.response.data.error);
             } else {
-                Alert.alert('Something went wrong');
+                alert('Something went wrong');
             }
         }
     }

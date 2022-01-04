@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Alert, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { AndroidToast, ToastAndroid, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import { Wrapper, Background, Avatar } from './ProfileHeader.style';
@@ -27,9 +27,10 @@ const ProfileHeader = () => {
                 setBackground(result.uri);
                 await userApi.setBackground(result.uri);
                 dispatch(getUserInfo());
+                ToastAndroid.show('Set background successfully', ToastAndroid.BOTTOM);
             }
         } catch (error) {
-            Alert.alert('Something went wrong');
+            alert('Something went wrong');
             console.log(error);
         }
     }
@@ -44,9 +45,10 @@ const ProfileHeader = () => {
                 setAvatar(result.uri);
                 await userApi.setAvatar(result.uri);
                 dispatch(getUserInfo());
+                ToastAndroid.show('Set avatar successfully', ToastAndroid.BOTTOM);
             }
         } catch (error) {
-            Alert.alert('Something went wrong');
+            alert('Something went wrong');
             console.log(error);
         }
     }

@@ -24,11 +24,11 @@ const ListItem = ({ data, editCallback, deleteCallback }) => {
             <Item>
                 <ItemText>{item.title}</ItemText>
                 <ItemIconWrapper>
-                    <ItemIcon onPress={(newValue) => editCallback(item._id, newValue)}>
-                        <MaterialIcons name='edit' size={28} color={GlobalStyle.color.white} />
+                    <ItemIcon onPress={() => editCallback(item.title, item._id)}>
+                        <MaterialIcons name='edit' size={24} color={GlobalStyle.color.white} />
                     </ItemIcon>
                     <ItemIcon onPress={() => alertDelete(item._id)}>
-                        <MaterialIcons name='delete' size={28} color={GlobalStyle.color.white} />
+                        <MaterialIcons name='delete' size={24} color={GlobalStyle.color.white} />
                     </ItemIcon>
                 </ItemIconWrapper>
             </Item>
@@ -41,7 +41,7 @@ const ListItem = ({ data, editCallback, deleteCallback }) => {
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item._id}
-                contentContainerStyle={{ paddingBottom: 20 }}
+                contentContainerStyle={{ paddingTop: 20, paddingBottom: 0 }}
             />
         </Wrapper>
     )

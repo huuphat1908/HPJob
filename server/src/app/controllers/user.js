@@ -188,7 +188,6 @@ class UserController {
             const isValidPassword = await bcrypt.compare(input.oldPassword, currentUser.password);
             if (isValidPassword) {
                 const newHashedPassword = await bcrypt.hash(input.newPassword, saltRounds);
-                console.log({ ...currentUser, password: newHashedPassword });
                 await UserModel.findOneAndUpdate({ _id: currentUser._id }, { ...currentUser, password: newHashedPassword });
                 return res.status(200).json({
                     success: 'Change password successfully'

@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        backgroundColor: '#fdfdfd',
-        borderRadius: 7,
+        backgroundColor: '#eee',
+        borderRadius: 21,
         width: '80%',
         height: 40,
-        maxHeight: 280,
+        maxHeight: 250,
     }
 });
 
@@ -32,14 +32,14 @@ const Modal = ({ visible, handleModal, textInput, handleInput, title, content, p
             onBackdropPress={handleModal}
             propagateSwipe
         >
-            <Title>{title}</Title>
-            <Content>{content}</Content>
+            <Title content={content}>{title}</Title>
+            {content ? <Content>{content}</Content> : null}
             <InputWrapper>
                 <Input
                     onChangeText={text => handleInput(text)}
                     value={textInput}
                     placeholder={placeholder}
-                    placeholderTextColor={GlobalStyle.color.white}
+                    placeholderTextColor={GlobalStyle.color.darkGrey}
                 />
             </InputWrapper>
             <ContainerButton>
