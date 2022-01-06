@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ListItem from '../components/ListItem';
+import SearchBar from '../components/SearchBar';
 import Modal from '../components/Modal';
 import { PrimaryButton, PrimaryTextButton } from '../GlobalStyle';
 import jobTitleApi from '../api/jobTitleApi';
@@ -19,6 +20,8 @@ const JobTitle = () => {
         id: '',
         title: ''
     });
+    const [jobTitleQuery, setJobTitleQuery] = useState('');
+    const [jobTitleQueryList, setJobTitleQueryList] = useState([]);
 
     const handleAddModal = () => {
         setVisibleAddModal(!visibleAddModal);
@@ -50,6 +53,7 @@ const JobTitle = () => {
         try {
             await jobTitleApi.modifyJobTitle(editableJobTitle.id, editableJobTitle.title);
             ToastAndroid.show('Edit successfully', ToastAndroid.BOTTOM);
+            setJobTitleQuery('');
             dispatch(getAllJobTitle());
         } catch (error) {
             alert(error.response.data.error);
@@ -60,12 +64,24 @@ const JobTitle = () => {
         try {
             await jobTitleApi.deleteJobTitle(id);
             ToastAndroid.show('Delete successfully', ToastAndroid.BOTTOM);
+            setJobTitleQuery('');
             dispatch(getAllJobTitle());
         } catch(error) {
             console.log(error);
             alert(error.response.data.error);
         }
     };
+
+    useEffect(async () => {
+        if (jobTitleQuery) {
+            try {
+                const jobTitleQueryListResponse = await jobTitleApi.searchJobTitle(jobTitleQuery);
+                setJobTitleQueryList(jobTitleQueryListResponse);
+            } catch (error) {
+                alert(error.response.data.error);
+            }
+        }
+    }, [jobTitleQuery]);
 
     return (
         <>
@@ -89,10 +105,17 @@ const JobTitle = () => {
                 title='Edit job title'
                 callback={editJobTitle}
             />
+            <SearchBar
+                    placeholder='Search...'
+                    text={jobTitleQuery}
+                    setText={setJobTitleQuery}
+            />
             <ListItem
-                data={jobTitles}
+                data={jobTitleQuery ? jobTitleQueryList : jobTitles}
+                field='title'
                 editCallback={handleEditModal}
                 deleteCallback={deleteJobTitle}
+                noItemFoundTitle='No job title found'
             />
             <PrimaryButton onPress={handleAddModal}>
                 <PrimaryTextButton>Add job title</PrimaryTextButton>

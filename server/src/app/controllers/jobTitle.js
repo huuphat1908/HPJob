@@ -13,6 +13,20 @@ class JobTitleController {
         }
     };
 
+    getJobTitleBaseOnTitle = async (req, res) => {
+        const { title } = req.query;
+        console.log(title);
+        try {
+            let jobTitleList = await JobTitleModel.find({});
+            jobTitleList = jobTitleList.filter(jobTitle => jobTitle.title.toLowerCase().indexOf(title.toLowerCase()) !== -1);
+            return res.status(200).json(jobTitleList);
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
+        }
+    };
+
     //POST
     createJobTitle = async (req, res) => {
         const input = req.body;

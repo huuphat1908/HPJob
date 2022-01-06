@@ -5,13 +5,14 @@ export const Wrapper = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
 `;
 
 export const Content = styled.FlatList`
     width: 100%;
 `;
 
-export const Item = styled.TouchableOpacity`
+export const Item = styled.View`
     margin-left: auto;
     margin-right: auto;
     width: 90%;
@@ -38,4 +39,17 @@ export const ItemIconWrapper = styled.View`
 
 export const ItemIcon = styled.TouchableOpacity`
     margin-left: 5px;
+`;
+
+export const NoItemFoundWrapper = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const NoItemFoundTitle = styled.Text`
+    font-weight: bold;
+    font-size: 28px;
+    margin-top: 24px;
+    color: ${GlobalStyle.color.grey};
 `;

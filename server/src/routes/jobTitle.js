@@ -6,6 +6,7 @@ import { checkAdmin } from '../app/middlewares/auth.js';
 const jobTitleRouter = express.Router();
 
 jobTitleRouter.get('/', jobTitleController.getAllJobTitle);
+jobTitleRouter.get('/search', jobTitleController.getJobTitleBaseOnTitle);
 
 jobTitleRouter.post('/', checkAdmin, jobTitleController.createJobTitle);
 

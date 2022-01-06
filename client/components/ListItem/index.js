@@ -1,11 +1,11 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
-import { Wrapper, Content, Item, ItemText, ItemIconWrapper, ItemIcon } from './ListItem.style';
+import { Wrapper, Content, Item, ItemText, ItemIconWrapper, ItemIcon, NoItemFoundWrapper, NoItemFoundTitle } from './ListItem.style';
 import GlobalStyle from '../../GlobalStyle';
 
-const ListItem = ({ data, editCallback, deleteCallback }) => {
+const ListItem = ({ data, field, editCallback, deleteCallback, noItemFoundTitle }) => {
     const alertDelete = (id) => {
         Alert.alert(
             'Delete job title',
@@ -22,9 +22,9 @@ const ListItem = ({ data, editCallback, deleteCallback }) => {
     const renderItem = ({ item }) => {
         return (
             <Item>
-                <ItemText>{item.title}</ItemText>
+                <ItemText>{item[field]}</ItemText>
                 <ItemIconWrapper>
-                    <ItemIcon onPress={() => editCallback(item.title, item._id)}>
+                    <ItemIcon onPress={() => editCallback(item.name, item._id)}>
                         <MaterialIcons name='edit' size={24} color={GlobalStyle.color.white} />
                     </ItemIcon>
                     <ItemIcon onPress={() => alertDelete(item._id)}>
@@ -35,16 +35,25 @@ const ListItem = ({ data, editCallback, deleteCallback }) => {
         )
     }
 
-    return (
-        <Wrapper>
-            <Content
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={item => item._id}
-                contentContainerStyle={{ paddingTop: 20, paddingBottom: 0 }}
-            />
-        </Wrapper>
-    )
+    if (data.length > 0) {
+        return (
+            <Wrapper>
+                <Content
+                    data={data}
+                    renderItem={renderItem}
+                    keyExtractor={item => item._id}
+                    contentContainerStyle={{ paddingTop: 20, paddingBottom: 0 }}
+                />
+            </Wrapper>
+        )
+    } else {
+        return (
+            <NoItemFoundWrapper>
+                <FontAwesome5 name='frown' size={80} color={GlobalStyle.color.grey} />
+                <NoItemFoundTitle>{noItemFoundTitle ? noItemFoundTitle : 'No item found'}</NoItemFoundTitle>
+            </NoItemFoundWrapper>
+        )
+    }
 }
 
 export default ListItem;

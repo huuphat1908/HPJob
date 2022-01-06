@@ -2,51 +2,51 @@ import queryString from 'query-string';
 
 import axiosClient from './axiosClient';
 
-const jobTitleApi = {
-    getAllJobTitle: () => {
-        const url = '/job-titles';
+const cityApi = {
+    getAllCity: () => {
+        const url = '/cities';
         return axiosClient({
             url,
             method: 'get'
         });
     },
 
-    searchJobTitle: (jobTitle) => {
+    searchCity: (cityName) => {
         let query = {
-            title: jobTitle
+            name: cityName
         };
         query = queryString.stringify(query);
-        const url = `/job-titles/search?${query}`;
+        const url = `/cities/search?${query}`;
         return axiosClient({
             url,
             method: 'get'
         });
     },
 
-    createJobTitle: (title) => {
-        const url = '/job-titles';
+    createCity: (name) => {
+        const url = '/cities';
         return axiosClient({
             url,
             method: 'post',
             data: {
-                title
+                name
             }
         });
     },
 
-    modifyJobTitle: (id, title) => {
-        const url = `/job-titles/${id}`;
+    modifyCity: (id, name) => {
+        const url = `/cities/${id}`;
         return axiosClient({
             url,
             method: 'put',
             data: {
-                title
+                name
             }
         });
     },
 
-    deleteJobTitle: (id) => {
-        const url = `/job-titles/${id}`;
+    deleteCity: (id) => {
+        const url = `/cities/${id}`;
         return axiosClient({
             url,
             method: 'delete'
@@ -54,4 +54,4 @@ const jobTitleApi = {
     }
 };
 
-export default jobTitleApi;
+export default cityApi;
