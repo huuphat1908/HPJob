@@ -7,10 +7,11 @@ const JobSchema = new Schema({
     description: { type: String, required: true },
     minSalary: { type: Number, required: true },
     maxSalary: { type: Number, required: true },
+    city: { type: String, required: true },
     candidate: [
-        { type: mongoose.Types.ObjectId, ref: 'User' }
+        { type: Schema.Types.ObjectId, ref: 'User' }
     ],
-    recruiter: { type: mongoose.Types.ObjectId, ref: 'User' }
+    recruiter: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 const JobModel =  mongoose.model('Job', JobSchema);

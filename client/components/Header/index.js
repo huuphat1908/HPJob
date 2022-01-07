@@ -23,6 +23,9 @@ const Header = () => {
             case '/':
                 setTitle('Home');
                 break;
+            case '/job':
+                setTitle('Job');
+                break;
             case '/profile':
                 setTitle('Profile');
                 break;

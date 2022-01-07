@@ -15,7 +15,6 @@ class JobTitleController {
 
     getJobTitleBaseOnTitle = async (req, res) => {
         const { title } = req.query;
-        console.log(title);
         try {
             let jobTitleList = await JobTitleModel.find({});
             jobTitleList = jobTitleList.filter(jobTitle => jobTitle.title.toLowerCase().indexOf(title.toLowerCase()) !== -1);

@@ -15,6 +15,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import ChangePassword from './screens/ChangePassword';
 import JobTitle from './screens/JobTitle';
+import Job from './screens/Job';
 import City from './screens/City';
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/change-password' element={<ChangePassword />} />
+            <Route path='/job' element={<Job />} />
             
             <Route path='/admin/job-title' element={<JobTitle />} />
             <Route path='/admin/city' element={<City />} />

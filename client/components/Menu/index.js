@@ -52,6 +52,14 @@ const Menu = ({ visible, handleVisible }) => {
                         <MenuText>Home</MenuText>
                     </MenuItem>
                 </Link>
+                <Link to='/job' onPress={handleVisible}>
+                    <MenuItem pathname='/job' location={location.pathname}>
+                        <MenuIcon>
+                            <AntDesign name='inbox' size={20} color={GlobalStyle.color.grey} />
+                        </MenuIcon>
+                        <MenuText>Job</MenuText>
+                    </MenuItem>
+                </Link>
                 <Link to='/profile' onPress={handleVisible}>
                     <MenuItem pathname='/profile' location={location.pathname}>
                         <MenuIcon>

@@ -9,4 +9,6 @@ jobRouter.get('/', jobController.getAllJob);
 
 jobRouter.post('/', jobController.createJob);
 
+jobRouter.patch('/:jobId/:candidateId', jobController.applyToJob);
+
 export default jobRouter;

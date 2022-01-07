@@ -13,12 +13,12 @@ const UserSchema = new Schema({
     portfolio: { type: String, default: '' },
     avatar: { type: String, default: '' },
     background: { type: String, default: '' },
-    jobApplied: [{
-        jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
-    }],
-    jobPosted: [{
-        jobId: { type: mongoose.Types.ObjectId, ref: 'Job' }
-    }]
+    jobApplied: [
+        { type: Schema.Types.ObjectId, ref: 'Job' }
+    ],
+    jobPosted: [
+        { type: Schema.Types.ObjectId, ref: 'Job' }
+    ]
 });
 
 const UserModel =  mongoose.model('User', UserSchema);
