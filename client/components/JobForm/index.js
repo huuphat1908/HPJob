@@ -72,6 +72,64 @@ const SignUpForm = () => {
                             : null
                         }
                         <InputWrapper>
+                            <Picker
+                                style={{
+                                    color: GlobalStyle.color.blue,
+                                }}
+                                name='type'
+                                onBlur={handleBlur('type')}
+                                selectedValue={values.type}
+                                onValueChange={(itemValue) => setFieldValue('type', itemValue)}
+                            >
+                                <Picker.Item
+                                    key={1}
+                                    label='Select type...'
+                                    value=''
+                                />
+                                <Picker.Item
+                                    key={2}
+                                    label='Part-time'
+                                    value='Part-time'
+                                />
+                                <Picker.Item
+                                    key={3}
+                                    label='Full-time'
+                                    value='Full-time'
+                                />
+                            </Picker>
+                        </InputWrapper>
+                        {(touched.type && errors.type) ?
+                            <ErrorText>{touched.type && errors.type}</ErrorText>
+                            : null
+                        }
+                        <InputWrapper>
+                            <Picker
+                                style={{
+                                    color: GlobalStyle.color.blue,
+                                }}
+                                onBlur={handleBlur('city')}
+                                onValueChange={itemValue => setFieldValue('city', itemValue)}
+                                selectedValue={values.city}
+                            >
+                                <Picker.Item
+                                    key={1}
+                                    label='Select city...'
+                                    value=''
+                                />
+                                {cities.map(city =>
+                                    <Picker.Item
+                                        key={city._id}
+                                        label={city.name}
+                                        value={city.name}
+                                    />
+                                )}
+                            </Picker>
+                        </InputWrapper>
+                        {(touched.city && errors.city) ?
+                            <ErrorText>{touched.city && errors.city}</ErrorText>
+                            : null
+                        }
+                        <InputWrapper>
                             <Input
                                 name='description'
                                 placeholder='Description...'
@@ -118,33 +176,6 @@ const SignUpForm = () => {
                         </InputWrapper>
                         {(touched.maxSalary && errors.maxSalary) ?
                             <ErrorText>{touched.maxSalary && errors.maxSalary}</ErrorText>
-                            : null
-                        }
-                        <InputWrapper>
-                            <Picker
-                                style={{
-                                    color: GlobalStyle.color.blue,
-                                }}
-                                onBlur={handleBlur('city')}
-                                onValueChange={itemValue => setFieldValue('city', itemValue)}
-                                selectedValue={values.city}
-                            >
-                                <Picker.Item
-                                    key={1}
-                                    label='Select city...'
-                                    value=''
-                                />
-                                {cities.map(city =>
-                                    <Picker.Item
-                                        key={city._id}
-                                        label={city.name}
-                                        value={city.name}
-                                    />
-                                )}
-                            </Picker>
-                        </InputWrapper>
-                        {(touched.city && errors.city) ?
-                            <ErrorText>{touched.city && errors.city}</ErrorText>
                             : null
                         }
                         <PrimaryButton onPress={handleSubmit}>

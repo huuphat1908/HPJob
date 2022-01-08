@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useWindowDimensions} from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
 
-import JobApplyTo from "../components/JobApplyTo";
+import JobApplied from "../components/JobApplied";
 import JobPosted from "../components/JobPosted";
 
 const renderScene = SceneMap({
   first: JobPosted,
-  second: JobApplyTo,
+  second: JobApplied,
 });
 
 const Job = () => {
@@ -16,7 +16,7 @@ const Job = () => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: "first", title: "Posted" },
-    { key: "second", title: "Apply to" },
+    { key: "second", title: "Applied" },
   ]);
 
   return (

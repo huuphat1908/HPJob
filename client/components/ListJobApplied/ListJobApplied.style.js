@@ -1,0 +1,59 @@
+import styled from 'styled-components/native';
+import GlobalStyle from '../../GlobalStyle';
+
+export const Wrapper = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+`;
+
+export const Content = styled.FlatList`
+    width: 100%;
+`;
+
+export const Item = styled.View`
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    min-height: 30px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: ${props => props.completed ? GlobalStyle.color.green : GlobalStyle.color.grey};
+`;
+
+export const ItemTextContainer = styled.View`
+    width: 80%;
+    flex-direction: column;
+`;
+
+export const ItemText = styled.Text`
+    font-size: 18px;
+    color: ${GlobalStyle.color.white};
+`;
+
+export const ItemIconWrapper = styled.View`
+    flex-direction: row;
+    width: 20%;
+`;
+
+export const ItemIcon = styled.TouchableOpacity`
+    margin-left: 5px;
+`;
+
+export const NoItemFoundWrapper = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const NoItemFoundTitle = styled.Text`
+    font-weight: bold;
+    font-size: 28px;
+    margin-top: 24px;
+    color: ${GlobalStyle.color.grey};
+`;

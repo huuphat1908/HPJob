@@ -8,7 +8,12 @@ export const checkAuth = async (req, res, next) => {
         const token = authorizationHeader.split(' ')[1];
         if (token) {
             const tokenDecoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
-            const currentUser = await UserModel.findById(tokenDecoded.userId).populate('jobApplied').populate('jobPosted');
+            const currentUser = await UserModel.findById(tokenDecoded.userId).populate('jobApplied').populate({
+            path: 'jobPosted',
+            populate: {
+                path: 'candidate.info'
+            }
+        });
             res.locals.currentUser = currentUser;
             next();
         } else {
