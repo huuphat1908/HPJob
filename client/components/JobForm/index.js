@@ -49,7 +49,7 @@ const SignUpForm = () => {
                                     color: GlobalStyle.color.blue,
                                 }}
                                 name='title'
-                                onBlur={handleBlur('title')}
+                                onBlur={() => setTimeout(() => handleBlur('title'), 1000)}
                                 selectedValue={values.title}
                                 onValueChange={(itemValue) => setFieldValue('title', itemValue)}
                             >
@@ -77,7 +77,7 @@ const SignUpForm = () => {
                                     color: GlobalStyle.color.blue,
                                 }}
                                 name='type'
-                                onBlur={handleBlur('type')}
+                                onBlur={() => setTimeout(() => handleBlur('type'), 1000)}
                                 selectedValue={values.type}
                                 onValueChange={(itemValue) => setFieldValue('type', itemValue)}
                             >
@@ -107,7 +107,7 @@ const SignUpForm = () => {
                                 style={{
                                     color: GlobalStyle.color.blue,
                                 }}
-                                onBlur={handleBlur('city')}
+                                onBlur={() => setTimeout(() => handleBlur('city'), 1000)}
                                 onValueChange={itemValue => setFieldValue('city', itemValue)}
                                 selectedValue={values.city}
                             >
@@ -131,10 +131,26 @@ const SignUpForm = () => {
                         }
                         <InputWrapper>
                             <Input
+                                name='address'
+                                placeholder='Address...'
+                                placeholderTextColor={'#000f5c'}
+                                autoCompleteType='off'
+                                onChangeText={handleChange('address')}
+                                onBlur={handleBlur('address')}
+                                value={values.address}
+                            />
+                        </InputWrapper>
+                        {(touched.address && errors.address) ?
+                            <ErrorText>{touched.address && errors.address}</ErrorText>
+                            : null
+                        }
+                        <InputWrapper isTextArea={true}>
+                            <Input
                                 name='description'
                                 placeholder='Description...'
                                 multiline={true}
-                                numberOfLines={4}
+                                numberOfLines={10}
+                                textAlignVertical='top'
                                 placeholderTextColor={'#000f5c'}
                                 autoCompleteType='off'
                                 onChangeText={handleChange('description')}
@@ -149,7 +165,7 @@ const SignUpForm = () => {
                         <InputWrapper>
                             <Input
                                 name='minSalary'
-                                placeholder='Min salary...'
+                                placeholder='Min salary ($)...'
                                 placeholderTextColor={'#000f5c'}
                                 autoCompleteType='off'
                                 keyboardType='numeric'
@@ -165,7 +181,7 @@ const SignUpForm = () => {
                         <InputWrapper>
                             <Input
                                 name='maxSalary'
-                                placeholder='Max salary...'
+                                placeholder='Max salary ($)...'
                                 placeholderTextColor={'#000f5c'}
                                 autoCompleteType='off'
                                 keyboardType='numeric'

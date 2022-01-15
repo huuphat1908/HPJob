@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import randomstring from 'randomstring';
 
-import { UserModel } from '../models/index.js';
+import { UserModel, JobModel } from '../models/index.js';
 
 const saltRounds = 7;
 
@@ -113,9 +113,8 @@ class UserController {
     setBackground = async (req, res) => {
         try {
             const background = `/img/${req.file.filename}`;
-            const userId = res.locals.currentUser._id;
             const currentUser = res.locals.currentUser;
-            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, background });
+            await UserModel.findOneAndUpdate({ _id: currentUser._id }, { ...currentUser, background });
             return res.status(200).json({
                 success: 'Set background successfully'
             })
@@ -129,9 +128,9 @@ class UserController {
     setAvatar = async (req, res) => {
         try {
             const avatar = `/img/${req.file.filename}`;
-            const userId = res.locals.currentUser._id;
             const currentUser = res.locals.currentUser;
-            await UserModel.findOneAndUpdate({ _id: userId }, { ...currentUser, avatar });
+            console.log({ ...currentUser, avatar });
+            await UserModel.findOneAndUpdate({ _id: currentUser._id }, { ...currentUser, avatar });
             return res.status(200).json({
                 success: 'Set avatar successfully'
             })
@@ -201,6 +200,66 @@ class UserController {
             return res.status(500).json({
                 error: 'Internal server error'
             })
+        }
+    }
+
+    interview = async (req, res) => {
+        const { jobId, candidateId } = req.params;
+        let success = 'Marked candidate as interviewed';
+        try {
+            const candidate = await UserModel.findById(candidateId);
+            const job = await JobModel.findById(jobId);
+            const indexOfCandidateInJob = job.candidate.findIndex(candidate => candidate.info == candidateId);
+            const indexOfJobInCandidate = candidate.jobApplied.findIndex(job => job.info == jobId);
+            if (indexOfCandidateInJob == -1 || indexOfJobInCandidate == -1) {
+                return res.status(400).json({
+                    error: `Can't interview`
+                })
+            }
+            if (job.candidate[indexOfCandidateInJob].interviewed) {
+                success = 'Marked candidate as interviewed';
+            }
+            job.candidate[indexOfCandidateInJob].interviewed = !job.candidate[indexOfCandidateInJob].interviewed;
+            candidate.jobApplied[indexOfJobInCandidate].interviewed = !candidate.jobApplied[indexOfJobInCandidate].interviewed;
+            await UserModel.findOneAndUpdate({ _id: candidate._id }, { ...candidate });
+            await JobModel.findOneAndUpdate({ _id: job._id }, { ...job });
+            return res.status(200).json({
+                success
+            });
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
+        }
+    }
+
+    recruit = async (req, res) => {
+        const { jobId, candidateId } = req.params;
+        let success = 'Marked candidate as recruited';
+        try {
+            const candidate = await UserModel.findById(candidateId);
+            const job = await JobModel.findById(jobId);
+            const indexOfCandidateInJob = job.candidate.findIndex(candidate => candidate.info == candidateId);
+            const indexOfJobInCandidate = candidate.jobApplied.findIndex(job => job.info == jobId);
+            if (indexOfCandidateInJob == -1 || indexOfJobInCandidate == -1) {
+                return res.status(400).json({
+                    error: `Can't recruit`
+                })
+            }
+            if (job.candidate[indexOfCandidateInJob].accepted) {
+                success = 'Marked candidate as not recruited'
+            }
+            job.candidate[indexOfCandidateInJob].accepted = !job.candidate[indexOfCandidateInJob].accepted;
+            candidate.jobApplied[indexOfJobInCandidate].accepted = !candidate.jobApplied[indexOfJobInCandidate].accepted;
+            await UserModel.findOneAndUpdate({ _id: candidate._id }, { ...candidate });
+            await JobModel.findOneAndUpdate({ _id: job._id }, { ...job });
+            return res.status(200).json({
+                success
+            });
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
         }
     }
 }

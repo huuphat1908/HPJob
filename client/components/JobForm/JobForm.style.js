@@ -13,14 +13,15 @@ export const InputWrapper = styled.View`
     width: 80%;
     background: ${GlobalStyle.color.white};
     border-radius: 25px;
-    height: 60px;
+    height: ${props => props.isTextArea ? '120px' : '60px'};
     margin-bottom: 20px;
     justify-content: center;
     padding: 20px;
 `;
 
 export const Input = styled.TextInput`
-    height: 50px;
+    height: ${props => props.isTextArea ? '110px' : '50px'};
+    height: 80px;
     color: ${GlobalStyle.color.blue};
 `;
 

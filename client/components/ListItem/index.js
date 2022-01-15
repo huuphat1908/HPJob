@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { Wrapper, Content, Item, ItemText, ItemIconWrapper, ItemIcon, NoItemFoundWrapper, NoItemFoundTitle } from './ListItem.style';
+import { Wrapper, Content, Item, ItemText, ItemIconWrapper, ItemIcon } from './ListItem.style';
 import GlobalStyle from '../../GlobalStyle';
+import NoItem from '../NoItem';
 
 const ListItem = ({ data, field, editCallback, deleteCallback, noItemFoundTitle }) => {
     const alertDelete = (id) => {
@@ -48,10 +49,10 @@ const ListItem = ({ data, field, editCallback, deleteCallback, noItemFoundTitle 
         )
     } else {
         return (
-            <NoItemFoundWrapper>
-                <FontAwesome5 name='frown' size={80} color={GlobalStyle.color.grey} />
-                <NoItemFoundTitle>{noItemFoundTitle ? noItemFoundTitle : 'No item found'}</NoItemFoundTitle>
-            </NoItemFoundWrapper>
+            <NoItem
+                title={noItemFoundTitle}
+                color={GlobalStyle.color.grey}
+            />
         )
     }
 }

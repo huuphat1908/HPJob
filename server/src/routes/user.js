@@ -27,6 +27,8 @@ userRouter.patch('/background', checkAuth, upload.single('background'), userCont
 userRouter.patch('/avatar', checkAuth, upload.single('avatar'), userController.setAvatar);
 userRouter.patch('/reset-password', userController.resetPassword);
 userRouter.patch('/change-password', checkAuth, userController.changePassword);
+userRouter.patch('/interview/:candidateId/:jobId', userController.interview);
+userRouter.patch('/recruit/:candidateId/:jobId', userController.recruit);
 userRouter.patch('/', checkAuth, userController.modifyUser);
 
 export default userRouter;

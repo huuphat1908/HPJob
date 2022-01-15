@@ -9,6 +9,7 @@ const JobSchema = new Schema({
     minSalary: { type: Number, required: true },
     maxSalary: { type: Number, required: true },
     city: { type: String, required: true },
+    address: { type: String, required: true },
     candidate: [{
         info: { type: Schema.Types.ObjectId, ref: 'User' },
         interviewed: { type: Boolean, default: false },

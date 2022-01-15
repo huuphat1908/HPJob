@@ -9,6 +9,14 @@ const jobApi = {
         });
     },
 
+    getOneJob: (jobId) => {
+        const url = `/jobs/${jobId}`;
+        return axiosClient({
+            url,
+            method: 'get'
+        });
+    },
+
     createJob: (data) => {
         const url = '/jobs';
         return axiosClient({

@@ -18,6 +18,7 @@ import JobTitle from './screens/JobTitle';
 import Job from './screens/Job';
 import JobDetail from './screens/JobDetail';
 import City from './screens/City';
+import Candidate from './screens/Candidate';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -39,6 +40,7 @@ export default function App() {
             <Route path='/change-password' element={<ChangePassword />} />
             <Route path='/job' element={<Job />} />
             <Route path='/job/:jobId' element={<JobDetail />} />
+            <Route path='/candidate/:candidateId' element={<Candidate />} />
             
             <Route path='/admin/job-title' element={<JobTitle />} />
             <Route path='/admin/city' element={<City />} />

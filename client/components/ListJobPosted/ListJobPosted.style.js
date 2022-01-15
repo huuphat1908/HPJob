@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+
 import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
@@ -23,16 +24,26 @@ export const Item = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: ${props => props.completed ? GlobalStyle.color.green : GlobalStyle.color.grey};
+    background: ${GlobalStyle.color.green};
 `;
 
-export const ItemTextContainer = styled.View`
+export const ItemInfoContainer = styled.View`
     width: 80%;
     flex-direction: column;
 `;
 
-export const ItemText = styled.Text`
-    font-size: 18px;
+export const ItemInfo = styled.View`
+    flex-direction: row;
+    align-items: center;
+    margin: 2px 0;
+`;
+
+export const ItemInfoIcon = styled.View`
+    width: 30px;
+`;
+
+export const ItemInfoText = styled.Text`
+    font-size: 16px;
     color: ${GlobalStyle.color.white};
 `;
 
@@ -43,17 +54,4 @@ export const ItemIconWrapper = styled.View`
 
 export const ItemIcon = styled.TouchableOpacity`
     margin-left: 5px;
-`;
-
-export const NoItemFoundWrapper = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const NoItemFoundTitle = styled.Text`
-    font-weight: bold;
-    font-size: 28px;
-    margin-top: 24px;
-    color: ${GlobalStyle.color.grey};
 `;

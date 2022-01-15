@@ -1,10 +1,11 @@
 import React from 'react';
 import { Alert } from 'react-native';
 import { Link } from 'react-router-native';
-import { AntDesign, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons, FontAwesome5, Entypo, Ionicons } from '@expo/vector-icons';
 
-import { Wrapper, Content, Item, ItemTextContainer, ItemText, ItemIconWrapper, ItemIcon, NoItemFoundWrapper, NoItemFoundTitle } from './ListJobPosted.style';
+import { Wrapper, Content, Item, ItemInfoContainer, ItemInfo, ItemInfoIcon, ItemInfoText, ItemIconWrapper, ItemIcon } from './ListJobPosted.style';
 import GlobalStyle from '../../GlobalStyle';
+import NoItem from '../NoItem';
 
 const ListJobPosted = ({ data, completeCallback, undoCompleteCallback, noItemFoundTitle }) => {
     const alertComplete = (jobId) => {
@@ -35,12 +36,42 @@ const ListJobPosted = ({ data, completeCallback, undoCompleteCallback, noItemFou
 
     const renderItem = ({ item }) => {
         return (
-            <Item completed={item.isCompleted}>
-                <ItemTextContainer>
-                    <ItemText>{item.title}</ItemText>
-                    <ItemText>{item.city}</ItemText>
-                    <ItemText>{item.type}</ItemText>
-                </ItemTextContainer>
+            <Item>
+                <ItemInfoContainer>
+                    <ItemInfo>
+                        <ItemInfoIcon>
+                            <MaterialCommunityIcons name='format-title' size={20} color={GlobalStyle.color.white} />
+                        </ItemInfoIcon>
+                        <ItemInfoText>{item.title}</ItemInfoText>
+                    </ItemInfo>
+                    <ItemInfo>
+                        <ItemInfoIcon>
+                            <Entypo name='location-pin' size={20} color={GlobalStyle.color.white} />
+                        </ItemInfoIcon>
+                        <ItemInfoText>{item.city}</ItemInfoText>
+                    </ItemInfo>
+                    <ItemInfo>
+                        <ItemInfoIcon>
+                            <FontAwesome5 name='clock' size={20} color={GlobalStyle.color.white} />
+                        </ItemInfoIcon>
+                        <ItemInfoText>{item.type}</ItemInfoText>
+                    </ItemInfo>
+                    {!item.isCompleted ?
+                        <ItemInfo>
+                            <ItemInfoIcon>
+                                <Ionicons name='lock-open-outline' size={20} color={GlobalStyle.color.white} />
+                            </ItemInfoIcon>
+                            <ItemInfoText>Opening</ItemInfoText>
+                        </ItemInfo>
+                        :
+                        <ItemInfo>
+                            <ItemInfoIcon>
+                                <Ionicons name='ios-lock-closed-outline' size={20} color={GlobalStyle.color.white} />
+                            </ItemInfoIcon>
+                            <ItemInfoText>Closed</ItemInfoText>
+                        </ItemInfo>
+                    }
+                </ItemInfoContainer>
                 <ItemIconWrapper>
                     <ItemIcon>
                         <Link to={`/job/${item._id}`}>
@@ -53,7 +84,7 @@ const ListJobPosted = ({ data, completeCallback, undoCompleteCallback, noItemFou
                         </ItemIcon>
                         :
                         <ItemIcon onPress={() => alertUndoComplete(item._id)}>
-                            <AntDesign name='close' size={24} color={GlobalStyle.color.white} />
+                            <MaterialCommunityIcons name='information-outline' size={24} color={GlobalStyle.color.white} />
                         </ItemIcon>
                     }
                 </ItemIconWrapper>
@@ -74,10 +105,10 @@ const ListJobPosted = ({ data, completeCallback, undoCompleteCallback, noItemFou
         )
     } else {
         return (
-            <NoItemFoundWrapper>
-                <FontAwesome5 name='frown' size={80} color={GlobalStyle.color.grey} />
-                <NoItemFoundTitle>{noItemFoundTitle ? noItemFoundTitle : 'No item found'}</NoItemFoundTitle>
-            </NoItemFoundWrapper>
+            <NoItem
+                title={noItemFoundTitle}
+                color={GlobalStyle.color.grey}
+            />
         )
     }
 }

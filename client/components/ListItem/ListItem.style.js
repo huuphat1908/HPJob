@@ -40,16 +40,3 @@ export const ItemIconWrapper = styled.View`
 export const ItemIcon = styled.TouchableOpacity`
     margin-left: 5px;
 `;
-
-export const NoItemFoundWrapper = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const NoItemFoundTitle = styled.Text`
-    font-weight: bold;
-    font-size: 28px;
-    margin-top: 24px;
-    color: ${GlobalStyle.color.grey};
-`;

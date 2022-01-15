@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { Link, useLocation } from 'react-router-native';
-import { FontAwesome5, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5, FontAwesome, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -55,7 +55,7 @@ const Menu = ({ visible, handleVisible }) => {
                 <Link to='/job' onPress={handleVisible}>
                     <MenuItem pathname='/job' location={location.pathname}>
                         <MenuIcon>
-                            <AntDesign name='inbox' size={20} color={GlobalStyle.color.grey} />
+                            <FontAwesome name='suitcase' size={20} color={GlobalStyle.color.grey} />
                         </MenuIcon>
                         <MenuText>Job</MenuText>
                     </MenuItem>
@@ -63,7 +63,7 @@ const Menu = ({ visible, handleVisible }) => {
                 <Link to='/profile' onPress={handleVisible}>
                     <MenuItem pathname='/profile' location={location.pathname}>
                         <MenuIcon>
-                            <AntDesign name='user' size={20} color={GlobalStyle.color.grey} />
+                            <FontAwesome5 name='user-alt' size={20} color={GlobalStyle.color.grey} />
                         </MenuIcon>
                         <MenuText>Profile</MenuText>
                     </MenuItem>

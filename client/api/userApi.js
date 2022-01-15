@@ -107,7 +107,23 @@ const userApi = {
                 'content-type': 'multipart/form-data'
             }
         });
-    }
+    },
+
+    interview: (candidateId, jobId) => {
+        const url = `/users/interview/${candidateId}/${jobId}`;
+        return axiosClient({
+            url,
+            method: 'patch'
+        });
+    },
+
+    recruit: (candidateId, jobId) => {
+        const url = `/users/recruit/${candidateId}/${jobId}`;
+        return axiosClient({
+            url,
+            method: 'patch'
+        });
+    },
 };
 
 export default userApi;

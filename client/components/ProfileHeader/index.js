@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { AndroidToast, ToastAndroid, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { ToastAndroid, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import { Wrapper, Background, Avatar } from './ProfileHeader.style';

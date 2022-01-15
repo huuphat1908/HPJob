@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, Linking, Alert, Modal } from 'react-native';
 import { useSelector } from 'react-redux';
-import { MaterialIcons, FontAwesome, Foundation, FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, Foundation, FontAwesome5 } from '@expo/vector-icons';
 
-import { Wrapper, Content, InfoLine, InfoIcon, InfoText, Title, Detail, EditUserWrapper, EditUserText } from './UserInfo.style';
-import GlobalStyle from '../../GlobalStyle';
+import { Wrapper, Content, InfoLine, InfoIcon, InfoText, Title, Detail } from './UserInfo.style';
+import GlobalStyle, { PrimaryButton, PrimaryTextButton } from '../../GlobalStyle';
 import UserForm from '../UserForm';
+import CloseButton from '../CloseButton';
 
 const UserInfo = () => {
     const user = useSelector(state => state.user.current);
@@ -27,9 +28,10 @@ const UserInfo = () => {
     return (
         <>
             <Modal visible={visibleModal} animationType='slide'>
-                <TouchableOpacity style={{ position: 'absolute', top: 10, right: 10, zIndex: 100 }}>
-                    <AntDesign name='close' size={32} color={GlobalStyle.color.white} onPress={handleModal} />
-                </TouchableOpacity>
+                <CloseButton 
+                    size='32'
+                    callback={handleModal}
+                />
                 <UserForm />
             </Modal>
             <Wrapper>
@@ -96,9 +98,9 @@ const UserInfo = () => {
                             </InfoIcon> : null
                         }
                     </InfoLine>
-                    <EditUserWrapper onPress={handleModal}>
-                        <EditUserText>Edit profile</EditUserText>
-                    </EditUserWrapper>
+                    <PrimaryButton onPress={handleModal}>
+                        <PrimaryTextButton>Edit profile</PrimaryTextButton>
+                    </PrimaryButton>
                 </Content>
             </Wrapper>
         </>

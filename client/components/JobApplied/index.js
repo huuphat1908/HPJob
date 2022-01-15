@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ToastAndroid } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 

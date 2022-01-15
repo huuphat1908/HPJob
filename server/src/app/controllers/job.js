@@ -3,13 +3,26 @@ import { JobModel, UserModel } from '../models/index.js';
 class JobController {
     //GET
     getAllJob = async (req, res) => {
+        const currentUser = res.locals.currentUser;
         try {
-            const jobs = await JobModel.find({ isComplete: false }).populate('recruiter').populate('candidate');
+            const jobs = await JobModel.find({ recruiter: { $ne: currentUser._id } , isCompleted: false }).populate('recruiter').populate('candidate');
             return res.status(200).json(jobs);
         } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'
             });
+        }
+    };
+
+    getOneJob = async (req, res) => {
+        try {
+            const { jobId } = req.params;
+            const job = await JobModel.findOne({ _id: jobId }).populate('recruiter').populate('candidate.info');
+            return res.status(200).json(job);
+        } catch(error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            })
         }
     };
 
@@ -36,8 +49,14 @@ class JobController {
         try {
             const candidate = await UserModel.findById(candidateId);
             const job = await JobModel.findById(jobId);
+            const indexOfCandidateInJob = job.candidate.findIndex(candidate => candidate.info == candidateId);
+            if (indexOfCandidateInJob > -1) {
+                return res.status(400).json({
+                    error: `Can't apply because you have applied this job before`
+                });
+            }
             job.candidate.push({ info: candidateId });
-            candidate.jobApplied.push(jobId);
+            candidate.jobApplied.push({ info: jobId });
             await UserModel.findOneAndUpdate({ _id: candidate._id }, { ...candidate });
             await JobModel.findOneAndUpdate({ _id: job._id }, { ...job });
             return res.status(200).json({
@@ -56,16 +75,15 @@ class JobController {
             const candidate = await UserModel.findById(candidateId);
             const job = await JobModel.findById(jobId);
             const indexOfCandidateInJob = job.candidate.findIndex(candidate => candidate.info == candidateId);
+            const indexOfJobInCandidate = candidate.jobApplied.findIndex(job => job.info == jobId);
+            if (indexOfCandidateInJob == -1 || indexOfJobInCandidate == -1) {
+                return res.status(400).json({
+                    error: `Can't unapply`
+                })
+            }
             if (indexOfCandidateInJob > -1) {
                 job.candidate.splice(indexOfCandidateInJob, 1);
             }
-            let indexOfJobInCandidate = candidate.jobApplied.indexOf(jobId);
-            /* for (let i = 0; i < candidate.jobApplied.length; i++) {
-                if (candidate.jobApplied[i].toString() == jobId) {
-                    indexOfJobInCandidate = i;
-                    break;
-                }
-            } */
             if (indexOfJobInCandidate > -1) {
                 candidate.jobApplied.splice(indexOfJobInCandidate, 1);
             }

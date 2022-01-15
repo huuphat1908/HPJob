@@ -38,6 +38,9 @@ const Header = () => {
             case '/admin/city':
                 setTitle('City');
                 break;
+            default:
+                setTitle('Job Detail');
+                break;
         }
     }, [location]);
 
