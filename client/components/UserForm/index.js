@@ -32,7 +32,7 @@ const SignUpForm = () => {
                         ToastAndroid.show('Change info successfully!', ToastAndroid.SHORT);
                     } catch (error) {
                         if (error.message == 'Request failed with status code 409') {
-                            alert('This email is already registered', ToastAndroid.SHORT);
+                            alert('This email is already registered');
                         }
                         else {
                             alert('Something went wrong');

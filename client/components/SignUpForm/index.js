@@ -23,8 +23,11 @@ const SignUpForm = () => {
                         actions.resetForm();
                         ToastAndroid.show('Sign up successfully', ToastAndroid.BOTTOM);
                     } catch (error) {
-                            alert(error.response.data.error);
-                            console.log(error.response.data.error);
+                            if (error.message == 'Request failed with status code 409') {
+                                alert('This email has been used');
+                            } else {
+                                alert(error.response.data.error);
+                            }
                     }
                 }}
             >

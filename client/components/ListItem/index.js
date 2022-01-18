@@ -25,7 +25,7 @@ const ListItem = ({ data, field, editCallback, deleteCallback, noItemFoundTitle 
             <Item>
                 <ItemText>{item[field]}</ItemText>
                 <ItemIconWrapper>
-                    <ItemIcon onPress={() => editCallback(item.name, item._id)}>
+                    <ItemIcon onPress={() => editCallback(item[field], item._id)}>
                         <MaterialIcons name='edit' size={24} color={GlobalStyle.color.white} />
                     </ItemIcon>
                     <ItemIcon onPress={() => alertDelete(item._id)}>
