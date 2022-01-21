@@ -62,7 +62,7 @@ const ListJobApplied = ({ data, unapplyCallback, noItemFoundTitle }) => {
                         <ItemInfoIcon>
                             <AntDesign name='team' size={20} color={GlobalStyle.color.white} />
                         </ItemInfoIcon>
-                        <ItemInfoText>{item.interviewed ? 'Interviewed' : 'Not interviewed'}</ItemInfoText>
+                        <ItemInfoText>{item.interviewed ? 'Interviewed' : 'Still not interviewed'}</ItemInfoText>
                     </ItemInfo>
                     <ItemInfo>
                         <ItemInfoIcon>

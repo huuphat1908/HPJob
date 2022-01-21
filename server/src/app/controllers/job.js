@@ -3,9 +3,18 @@ import { JobModel, UserModel } from '../models/index.js';
 class JobController {
     //GET
     getAllJob = async (req, res) => {
+        const { title, type, city } = req.query;
+        const filter = {
+            ...(title && { title }),
+            ...(type && { type }),
+            ...(city && { city })
+        };
         const currentUser = res.locals.currentUser;
         try {
-            const jobs = await JobModel.find({ recruiter: { $ne: currentUser._id } , isCompleted: false }).populate('recruiter').populate('candidate');
+            const jobs = await JobModel
+                .find({ recruiter: { $ne: currentUser._id }, isCompleted: false, ...filter })
+                .populate('recruiter')
+                .populate('candidate');
             return res.status(200).json(jobs);
         } catch (error) {
             return res.status(500).json({
@@ -14,12 +23,24 @@ class JobController {
         }
     };
 
+    /* searchJob = async (req, res) => {
+        const { title, type, city } = req.query;
+        try {
+            let jobList = await JobModel.find({ title, type, city });
+            return res.status(200).json(jobList);
+        } catch (error) {
+            return res.status(500).json({
+                error: 'Internal server error'
+            });
+        }
+    }; */
+
     getOneJob = async (req, res) => {
         try {
             const { jobId } = req.params;
             const job = await JobModel.findOne({ _id: jobId }).populate('recruiter').populate('candidate.info');
             return res.status(200).json(job);
-        } catch(error) {
+        } catch (error) {
             return res.status(500).json({
                 error: 'Internal server error'
             })

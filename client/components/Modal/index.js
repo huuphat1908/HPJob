@@ -29,7 +29,7 @@ const Modal = ({ visible, handleModal, textInput, handleInput, title, content, p
         <ModalLib
             style={styles.modal}
             isVisible={visible}
-            onBackdropPress={handleModal}
+            onBackdropPress={() => handleModal(null, null)}
             propagateSwipe
         >
             <Title content={content}>{title}</Title>
@@ -47,8 +47,12 @@ const Modal = ({ visible, handleModal, textInput, handleInput, title, content, p
                     <TextButton>Cancel</TextButton>
                 </CancelButton>
                 <AcceptButton onPress={() => {
-                    handleModal(null, null);
-                    callback();
+                    if (!textInput) {
+                        alert('Fill out this field below!');
+                    } else {
+                        handleModal(null, null);
+                        callback();
+                    }
                 }}>
                     <TextButton>Confirm</TextButton>
                 </AcceptButton>

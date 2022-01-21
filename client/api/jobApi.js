@@ -1,8 +1,16 @@
+import queryString from 'query-string';
+
 import axiosClient from './axiosClient';
 
 const jobApi = {
-    getAllJob: () => {
-        const url ='/jobs';
+    getAllJob: (title, type, city) => {
+        let query = {
+            ...(title) && { title },
+            ...(type) && { type },
+            ...(city) && { city }
+        };
+        query = queryString.stringify(query);
+        const url = `/jobs${query ? '?' : ''}${query}`;
         return axiosClient({
             url,
             method: 'get'

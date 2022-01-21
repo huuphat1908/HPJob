@@ -3,7 +3,7 @@ import GlobalStyle from '../../GlobalStyle';
 
 export const Wrapper = styled.View`
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 24px;
     background: ${GlobalStyle.color.lightGrey};
 `;
 
