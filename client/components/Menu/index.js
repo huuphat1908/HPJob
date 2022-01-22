@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { Link, useLocation } from 'react-router-native';
-import { FontAwesome5, FontAwesome, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5, FontAwesome, AntDesign, MaterialCommunityIcons, MaterialIcons, Feather } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -109,7 +109,7 @@ const Menu = ({ visible, handleVisible }) => {
                         <Link to='/admin/user' onPress={handleVisible}>
                             <MenuItem pathname='/admin/user' location={location.pathname}>
                                 <MenuIcon>
-                                    <MaterialIcons name='location-city' size={20} color={GlobalStyle.color.grey} />
+                                    <Feather name='users' size={20} color={GlobalStyle.color.grey} />
                                 </MenuIcon>
                                 <MenuText>User</MenuText>
                             </MenuItem>

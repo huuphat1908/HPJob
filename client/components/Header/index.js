@@ -39,7 +39,7 @@ const Header = () => {
                 setTitle('City');
                 break;
             case '/admin/user':
-                setTitle('User List');
+                setTitle('User');
                 break;
             default:
                 const path = location.pathname.split('/');
