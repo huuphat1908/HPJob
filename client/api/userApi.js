@@ -60,6 +60,14 @@ const userApi = {
         });
     },
 
+    getAllUser: () => {
+        const url = '/users';
+        return axiosClient({
+            url,
+            method: 'get'
+        });
+    },
+
     modifyUser: (user) => {
         const url = '/users';
         return axiosClient({

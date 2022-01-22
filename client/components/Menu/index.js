@@ -91,7 +91,7 @@ const Menu = ({ visible, handleVisible }) => {
                     <>
                         <Line />
                         <Link to='/admin/job-title' onPress={handleVisible}>
-                            <MenuItem pathname='/job-title' location={location.pathname}>
+                            <MenuItem pathname='/admin/job-title' location={location.pathname}>
                                 <MenuIcon>
                                     <MaterialIcons name='title' size={20} color={GlobalStyle.color.grey} />
                                 </MenuIcon>
@@ -99,11 +99,19 @@ const Menu = ({ visible, handleVisible }) => {
                             </MenuItem>
                         </Link>
                         <Link to='/admin/city' onPress={handleVisible}>
-                            <MenuItem pathname='/city' location={location.pathname}>
+                            <MenuItem pathname='/admin/city' location={location.pathname}>
                                 <MenuIcon>
                                     <MaterialIcons name='location-city' size={20} color={GlobalStyle.color.grey} />
                                 </MenuIcon>
                                 <MenuText>City</MenuText>
+                            </MenuItem>
+                        </Link>
+                        <Link to='/admin/user' onPress={handleVisible}>
+                            <MenuItem pathname='/admin/user' location={location.pathname}>
+                                <MenuIcon>
+                                    <MaterialIcons name='location-city' size={20} color={GlobalStyle.color.grey} />
+                                </MenuIcon>
+                                <MenuText>User</MenuText>
                             </MenuItem>
                         </Link>
                     </> : null

@@ -2,13 +2,13 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 
 import ProfileHeader from '../components/ProfileHeader';
-import UserInfo from '../components/UserInfo';
+import ProfileInfo from '../components/ProfileInfo';
 
 const Profile = () => {
     return (
         <ScrollView>
             <ProfileHeader />
-            <UserInfo />
+            <ProfileInfo />
         </ScrollView>
     );
 };

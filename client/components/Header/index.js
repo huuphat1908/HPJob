@@ -38,8 +38,22 @@ const Header = () => {
             case '/admin/city':
                 setTitle('City');
                 break;
+            case '/admin/user':
+                setTitle('User List');
+                break;
             default:
-                setTitle('Job Detail');
+                const path = location.pathname.split('/');
+                switch(path[1]) {
+                    case 'candidate':
+                        setTitle('Candidate Profile');
+                        break;
+                    case 'job':
+                        setTitle('Job Detail');
+                        break;
+                    default:
+                        setTitle('Arsenal');
+                        break;
+                }
                 break;
         }
     }, [location]);

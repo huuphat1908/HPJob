@@ -19,6 +19,7 @@ import Job from './screens/Job';
 import JobDetail from './screens/JobDetail';
 import City from './screens/City';
 import Candidate from './screens/Candidate';
+import User from './screens/User';
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -44,6 +45,7 @@ export default function App() {
             
             <Route path='/admin/job-title' element={<JobTitle />} />
             <Route path='/admin/city' element={<City />} />
+            <Route path='/admin/user' element={<User />} />
           </Routes>
         </SafeAreaView>
       </NativeRouter >

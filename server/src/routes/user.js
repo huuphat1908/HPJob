@@ -3,7 +3,7 @@ import express from 'express';
 import multer from 'multer';
 
 import { userController } from '../app/controllers/index.js';
-import { checkAuth } from '../app/middlewares/auth.js';
+import { checkAuth, checkAdmin } from '../app/middlewares/auth.js';
 
 const userRouter = express.Router();
 const storage = multer.diskStorage({
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });  
 
-userRouter.get('/', checkAuth, userController.getAllUser);
+userRouter.get('/', checkAuth, checkAdmin, userController.getAllUser);
 userRouter.get('/me', checkAuth, userController.getUserInfo);
 
 userRouter.post('/sign-up', userController.createUser);

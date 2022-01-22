@@ -5,21 +5,17 @@ import { Formik } from 'formik';
 import { Picker } from '@react-native-picker/picker';
 import { useSelector } from 'react-redux';
 
-import { Wrapper, InputWrapper, ErrorText } from './FilterJob.style';
+import { Wrapper, InputWrapper } from './FilterJob.style';
 import GlobalStyle, { PrimaryButton, PrimaryTextButton } from '../../GlobalStyle';
 
-const FilterJob = ({ handleFilter, handleModal }) => {
+const FilterJob = ({ initialValues, handleFilter, handleModal }) => {
     const jobTitles = useSelector(state => state.jobTitle.current);
     const cities = useSelector(state => state.city.current);
 
     return (
         <Wrapper>
             <Formik
-                initialValues={{
-                    title: '',
-                    type: '',
-                    city: '',
-                }}
+                initialValues={{...initialValues}}
                 onSubmit={async (values) => {
                     try {
                         const { title, type, city } = values;

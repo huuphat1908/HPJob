@@ -12,6 +12,7 @@ import ListJob from "../components/ListJob";
 import Filter from "../components/Filter";
 import FilterJob from "../components/FilterJob";
 import CloseButton from "../components/CloseButton";
+import { ToastAndroid } from "react-native";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -46,6 +47,11 @@ const Home = () => {
     setVisibleFilter(!visibleFilter);
   };
 
+  const refreshFilter = () => {
+    setSearchParams({});
+    ToastAndroid.show("Refresh job successfully", ToastAndroid.BOTTOM);
+  };
+
   useEffect(() => {
     const checkToken = async () => {
       const token = await SecureStore.getItemAsync("token");
@@ -70,11 +76,20 @@ const Home = () => {
       <Modal visible={visibleFilter} animationType="slide">
         <CloseButton size="32" callback={handleFilter} />
         <FilterJob
+          initialValues={{
+            title: searchParams.get("title") ? searchParams.get("title") : "",
+            type: searchParams.get("type") ? searchParams.get("type") : "",
+            city: searchParams.get("city") ? searchParams.get("city") : "",
+          }}
           handleFilter={handleQueryParams}
           handleModal={handleFilter}
         />
       </Modal>
-      <Filter title="Filter job" callback={handleFilter} />
+      <Filter
+        title="Filter job"
+        callback={handleFilter}
+        refreshCallback={refreshFilter}
+      />
       <ListJob data={jobs} loading={loading} noItemFoundTitle="No job" />
     </>
   );

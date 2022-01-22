@@ -23,8 +23,3 @@ export const Input = styled.TextInput`
     height: 50px;
     color: ${GlobalStyle.color.blue};
 `;
-
-export const ErrorText = styled.Text`
-    color: red;
-    padding-bottom: 20px;
-`;

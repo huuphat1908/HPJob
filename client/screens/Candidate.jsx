@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView} from "react-native";
+import { ScrollView } from "react-native";
 import { useLocation, useNavigate } from "react-router-native";
 
 import CandidateHeader from "../components/CandidateHeader";

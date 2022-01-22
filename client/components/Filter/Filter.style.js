@@ -5,6 +5,8 @@ export const Wrapper = styled.View`
     width: 100%;
     padding: 10px 24px;
     background: ${GlobalStyle.color.lightGrey};
+    flex-direction: row;
+    justify-content: space-between;
 `;
 
 export const Content = styled.TouchableOpacity`
@@ -17,3 +19,5 @@ export const Title = styled.Text`
     margin-left: 5px;
     color: ${GlobalStyle.color.grey};
 `;
+
+export const RefreshWrapper = styled.TouchableOpacity``;
