@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "client",
-    "slug": "client",
+    "name": "HPJob",
+    "slug": "hpjob",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/hpjob-logo.PNG",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -24,7 +24,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.HPTech.HPJob",
+      "versionCode": 1
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
