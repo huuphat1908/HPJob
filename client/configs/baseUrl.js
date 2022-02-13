@@ -1,1 +1,1 @@
-export const baseURLLocal = 'https://hp-job.herokuapp.com/';
+export const baseURLLocal = 'https://hp-job.herokuapp.com';
