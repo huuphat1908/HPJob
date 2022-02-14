@@ -4,7 +4,7 @@
     "slug": "hpjob",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/hpjob-logo.PNG",
+    "icon": "./assets/logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,8 +21,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#04182d"
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.HPTech.HPJob",
